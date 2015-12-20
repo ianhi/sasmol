@@ -41,7 +41,7 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
 
     def test_null(self):
         self.o.setElement([])
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_mass = []
         expected_totalmass = sum(expected_mass)
@@ -50,7 +50,7 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
 
     def test_one_atoms(self):
         self.o.setElement(['C'])
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_mass = [12.01078]
         expected_totalmass = sum(expected_mass)
@@ -59,7 +59,7 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
 
     def test_two_atoms(self):
         self.o.setElement(['C','O'])
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_mass = [12.01078, 15.99943]
         expected_totalmass = sum(expected_mass)
@@ -68,7 +68,7 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
        
     def test_six_atoms_duplicate(self):
         self.o.setElement(['C','O','C','1H','KR','AG'])
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_mass = [12.01078, 15.99943, 12.01078, 1.00782503214, 83.7982, 107.86822]
         expected_totalmass = sum(expected_mass)
@@ -77,7 +77,7 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
 
     def test_wrong_element(self):
         self.o.setElement(['XX','MM'])
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_mass = [0.0, 0.0]
         expected_totalmass = sum(expected_mass)

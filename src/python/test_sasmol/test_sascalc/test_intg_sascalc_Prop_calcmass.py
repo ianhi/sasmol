@@ -44,11 +44,11 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
 
     def test_null(self):
         with self.assertRaises(Exception):
-           self.o.calcmass()
+           self.o.calculate_mass()
 
     def test_one_atom_pdb(self):
         self.o.read_pdb(DataPath+'1ATM.pdb')
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_mass = [14.00672]
         expected_totalmass = sum(expected_mass)
@@ -57,7 +57,7 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
 
     def test_two_aa_pdb(self):
         self.o.read_pdb(DataPath+'2AAD.pdb')
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_mass = [14.00672, 12.01078, 12.01078, 15.99943, 12.01078, 12.01078, 12.01078, \
                           12.01078, 14.00672, 12.01078, 12.01078, 15.99943, 12.01078, 15.99943, 12.01078]
@@ -67,14 +67,14 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
 
     def test_rna_pdb(self):
         self.o.read_pdb(DataPath+'rna.pdb')
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_totalmass = 106197.087
         self.assertAlmostEqual(expected_totalmass, result_totalmass, self.tol)
 
     def test_1CRN_pdb(self):
         self.o.read_pdb(DataPath+'1CRN.pdb')
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_totalmass = 4412.904
         self.assertAlmostEqual(expected_totalmass, result_totalmass, self.tol)
@@ -82,7 +82,7 @@ class Test_sascalc_Prop_calcmass(MockerTestCase):
     @skipIf(os.environ['SASSIE_LARGETEST']=='n',"I am not testing large files")
     def test_1KP8_pdb(self):
         self.o.read_pdb(DataPath+'1KP8.pdb')
-        result_totalmass  = self.o.calcmass()
+        result_totalmass  = self.o.calculate_mass()
         result_mass = self.o.mass()
         expected_totalmass = 766109.266
         self.assertAlmostEqual(expected_totalmass, result_totalmass, self.tol)

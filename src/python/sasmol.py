@@ -47,7 +47,7 @@ import sasview
 
 '''
 
-class SasAtm(sasio.Files,sascalc.Prop,sasop.Move,sassubset.Mask,sasproperties.Atomic,saspdbrx.Topology,sasview.View):
+class SasAtm(sasio.Files,sascalc.Calculate,sasop.Move,sassubset.Mask,sasproperties.Atomic,saspdbrx.Topology,sasview.View):
 
     '''
 	SasAtm is the base class to build and deal with atomistic systems.
@@ -275,7 +275,7 @@ class SasAtm(sasio.Files,sascalc.Prop,sasop.Move,sassubset.Mask,sasproperties.At
 
     def totalmass(self):
         if(self._totalmass==None ):
-            self._totalmass=sascalc.Prop.calcmass(self)
+            self._totalmass=sascalc.Calculate.calcmass(self)
         return self._totalmass	
 
     def setTotalmass(self,newValue):

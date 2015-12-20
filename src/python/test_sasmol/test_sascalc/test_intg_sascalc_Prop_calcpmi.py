@@ -74,7 +74,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
         '''
          
         self.o.read_pdb(PdbPath+'1ATM.pdb')
-        self.o.calcmass()
+        self.o.calculate_mass()
         result = self.o.calcpmi(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
@@ -92,7 +92,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
 
     def test_two_aa_pdb(self):
         self.o.read_pdb(PdbPath+'2AAD.pdb')
-        self.o.calcmass()
+        self.o.calculate_mass()
         result = self.o.calcpmi(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
@@ -109,7 +109,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
 
     def test_rna_pdb(self):
         self.o.read_pdb(PdbPath+'rna.pdb')
-        self.o.calcmass()
+        self.o.calculate_mass()
         result = self.o.calcpmi(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
@@ -125,7 +125,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
 
     def test_1CRN_pdb(self):
         self.o.read_pdb(PdbPath+'1CRN.pdb')
-        self.o.calcmass()
+        self.o.calculate_mass()
         result = self.o.calcpmi(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
@@ -142,7 +142,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
     @skipIf(os.environ['SASSIE_LARGETEST']=='n',"I am not testing large files")
     def test_1KP8_pdb(self):
         self.o.read_pdb(PdbPath+'1KP8.pdb')
-        self.o.calcmass()
+        self.o.calculate_mass()
         result = self.o.calcpmi(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
