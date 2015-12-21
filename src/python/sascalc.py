@@ -65,7 +65,7 @@ class Calculate(object):
         return self.calculate_mass(**kwargs)
 
     def calccom(self, frame, **kwargs):
-        return self.calculate_center_of_mass(frame, **kwargs)
+        return self.calculate_center_of_mass(**kwargs)
 
     def calcrg(self, frame, **kwargs):
         return self.calculate_radius_of_gyration(frame, **kwargs)
@@ -82,8 +82,8 @@ class Calculate(object):
     def calcminmax_frame(self, frame, **kwargs):
         return self.minimum_and_maximum_one_frame(frame, **kwargs)
 
-    def calc_minmax_all_steps(self, dcdfilename, **kwargs):
-        return self.minimum_and_maximum_all_frames(dcdfilename, **kwargs)
+    def calc_minmax_all_steps(self, filename, **kwargs):
+        return self.minimum_and_maximum_all_frames(filename, **kwargs)
 
     def calcformula(self, **kwargs):
         return self.calculate_molecular_formula(self, **kwargs)
@@ -105,6 +105,14 @@ class Calculate(object):
         have their natural abundance weight. These elements are located
         at the end of the dictionary.
 
+        @type   self                :   sasmol object 
+
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   float
+
+        @return                     :   mass of the sasmol object
+
         '''
 		
         standard_atomic_weight = self.amu() 
@@ -122,15 +130,25 @@ class Calculate(object):
         return self._totalmass
 
 
-    def calculate_center_of_mass(self, frame, **kwargs):
+    def calculate_center_of_mass(self, **kwargs):
 	
         '''	
         This method calculates the center of mass of the object.  
 		
+        @type   self                :   sasmol object 
+
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   float
+
+        @return                     :   center of mass of the sasmol object
+        
         '''
 
+        frame = 0 
+
         if(self._totalmass <=0.0):
-            self.calculate_mass() # self.calcmass !!! uh oh
+            self.calculate_mass() 
         x=self._coor[frame,:,0] ; y=self._coor[frame,:,1] ; z=self._coor[frame,:,2]	
         comx=numpy.sum(self._mass*x)/self._totalmass	
         comy=numpy.sum(self._mass*y)/self._totalmass
@@ -141,10 +159,24 @@ class Calculate(object):
 
 
     def calculate_radius_of_gyration(self, frame, **kwargs):
+      
         '''	
         This method calculates the radius of gyration of the object
 		
+        @type   self                :   sasmol object 
+
+        @type   frame               :   integer
+
+        @param  frame               :   frame of trajectory to use
+
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   float
+
+        @return                     :   radius of gyration of the sasmol object
+        
         '''
+       
         self._com = self.calccom(frame)
 	
         if(self._natoms>0):
@@ -167,7 +199,18 @@ class Calculate(object):
         To use this over multiple frames you must call this function
         repeatedly.
 		
+        @type   self                :   sasmol object 
+
+        @type   other               :   sasmol object
+
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   float  
+
+        @return                     :   root mean square deviation between objects 
+        
         '''
+
 	###	OPEN	Add frame support here?
         try:
             dxyz=((self._coor-other._coor)*(self._coor-other._coor))
@@ -194,6 +237,19 @@ class Calculate(object):
         will return eigenvectors and I as None.  Testing for non-None return
         values should be done in the calling method.
 		
+        @type   self                :   sasmol object 
+
+        @type   frame               :   integer
+
+        @param  frame               :   frame of trajectory to use
+
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   float 
+
+        @return                     :   eigen values, eigen vectors and
+                                        principle moments of inertia array
+
         '''
 
         com = self.calccom(frame)
@@ -245,6 +301,15 @@ class Calculate(object):
 		
         A numpy array of min and max values are returned
 		
+        @type   self                :   sasmol object 
+
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   float array
+
+        @return                     :   nested list of minimum and maximum values 
+                                    :   [ [ min_x, min_y, min_z ], [max_x, max_y, max_z] ]
+
         '''
 
         min_x=numpy.min(self._coor[:,:,0]); max_x=numpy.max(self._coor[:,:,0])		
@@ -264,6 +329,19 @@ class Calculate(object):
 		
         A numpy array of min and max values are returned
 		
+        @type   self                :   sasmol object 
+
+        @type   frame               :   integer
+
+        @param  frame               :   frame of trajectory to use
+
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   float array
+
+        @return                     :   nested list of minimum and maximum values 
+                                    :   [ [ min_x, min_y, min_z ], [max_x, max_y, max_z] ]
+        
         '''
 
         min_x=numpy.min(self._coor[frame,:,0]); max_x=numpy.max(self._coor[frame,:,0])		
@@ -276,14 +354,34 @@ class Calculate(object):
         return [self._minimum,self._maximum]
 
 
-    def minimum_and_maximum_all_frames(self, dcdfilename, **kwargs):
+    def minimum_and_maximum_all_frames(self, filename, **kwargs):
 
+        '''	
+        This method calculates the min and max of frame=frame of the object in (x,y,z)
+		
+        A numpy array of min and max values are returned
+		
+        @type   self                :   sasmol object 
+
+        @type   filename            :   string
+
+        @param  filename            :   file with trajectory to use
+
+        @type   kwargs              :   pdb or dcd file input type
+
+        @rtype                      :   float array
+
+        @return                     :   nested list of minimum and maximum values 
+                                    :   [ [ [ min_x, min_y, min_z ], [max_x, max_y, max_z] ] ]
+        
+        '''
+        	
         if 'pdb' in kwargs:
             file_type = 'pdb'
             number_of_frames = self.number_of_frames()
         else:
             file_type = 'dcd'
-            dcdfilepointer_array = self.open_dcd_read(dcdfilename)
+            dcdfilepointer_array = self.open_dcd_read(filename)
             dcdfile = dcdfilepointer_array[0]
             number_of_frames = dcdfilepointer_array[2]
 
@@ -332,7 +430,15 @@ class Calculate(object):
         residue_charge = single_molecule.residue_charge()
 
         print 'res-charge = ',residue_charge[0]
+		
+        @type   self                :   sasmol object 
 
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   float  
+
+        @return                     :   charge per residue assigned to sasmol object
+        
         '''
 
         resid = self.resid()
@@ -378,6 +484,15 @@ class Calculate(object):
         '''
 
         Method to determine the number of each element in the molecule
+		
+        @type   self                :   sasmol object 
+
+        @type   kwargs              :   optional future arguments
+
+        @rtype                      :   string  
+
+        @return                     :   molecular formula
+        
         '''
 
         my_formula = {}
