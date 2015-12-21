@@ -22,3 +22,9 @@ import sasmol.calculate as calculate
 print 'ugly = ',calculate.Calculate.calculate_center_of_mass(m)
 print 'ugly? = ',calculate.Calculate.calccom(m,0)
 
+
+calc_com = calculate.Calculate.calculate_center_of_mass
+
+print 'prettier  = ',calc_com(m)
+
+
