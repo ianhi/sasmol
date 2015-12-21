@@ -28,35 +28,25 @@ import sasmath
 #								       *      **
 '''
     Calculate contains the classes and methods to calculate various
-    atomic and molecular properties and perform basic translation
-    and rotation operations on instances of objects described in
-    the sasmol module
+    atomic and molecular properties from instances of sasmol objects
 
 '''
-#class Prop(object):  
-# why not self?
 
 class Calculate(object):
 
     '''
     This class calculates various properties of the object.
 
-    calcmass calculates the mass of the object.
-	
-    calccom calculates the com of the object
+    TODO:  Need to think about sasmol object in epydocs
+    TODO:  Need to write a generic driver to loop over single or multiple frames
+    TODO:  Exception handling
+    TODO:  Remove or move backward compatiable method wrappers
+    TODO:  Generic loop w/ multiprocessing
+    TODO:  Cleaner doc-strings
+    TODO:  Main header information streamlined
+    TODO:  All spacing and naming conventions
 
-    calcrg calculates the radius of gyration
-
-    calcpmi calculates the principal moments of inertia (pmi)
-
-    calcminmax calculates the minimum and maximum coordinates of an object
-
-    calcformula determines the molecular formula based on elements
-
-    '''	
-
-    ''' 
-        backward compatiability methods
+    backward compatiability methods: need to remove this in stage 2
 
     '''
 
