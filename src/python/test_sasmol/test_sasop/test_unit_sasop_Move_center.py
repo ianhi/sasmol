@@ -21,7 +21,7 @@ from unittest import main
 from mocker import Mocker, MockerTestCase, ANY, ARGS, KWARGS
 import sasmol.sasmol as sasmol
 import sasmol.sasop as sasop
-import sasmol.sascalc as sascalc
+import sasmol.calculate as calculate
 
 import numpy
 
@@ -41,9 +41,9 @@ class Test_unit_sasop_Move_center(MockerTestCase):
         self.m.result(None)
         self.m.count(0,None)
 
-        self.back_calccom = sascalc.Prop.calccom 
-        sascalc.Prop.calccom = self.m.mock()
-        sascalc.Prop.calccom(ARGS)
+        self.back_calccom = calculate.Calculate.calculate_center_of_mass 
+        calculate.Calculate.calculate_center_of_mass = self.m.mock()
+        calculate.Calculate.calculate_center_of_mass(ARGS)
         self.m.result(None)
         self.m.count(0,None)
 
@@ -142,7 +142,7 @@ class Test_unit_sasop_Move_center(MockerTestCase):
 
     def tearDown(self):
         self.m.verify()
-        sascalc.Prop.calccom  =self.back_calccom
+        calculate.Calculate.calculate_center_of_mass=self.back_calccom
         sasop.Move.masscheck  =self.back_masscheck
 
 

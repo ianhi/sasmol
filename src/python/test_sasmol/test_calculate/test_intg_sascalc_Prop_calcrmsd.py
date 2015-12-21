@@ -29,7 +29,7 @@ import os
 floattype=os.environ['SASSIE_FLOATTYPE']
 
 PdbPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
-modulePdbPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','sasmol','sascalc')+os.path.sep
+modulePdbPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','sasmol','calculate')+os.path.sep
 
 
 class test_sascalc_Prop_calcrmsd(MockerTestCase): 

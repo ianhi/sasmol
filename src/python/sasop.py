@@ -50,7 +50,7 @@ class Move():
 	'''	
 
 	def masscheck(self,frame):
-		if(self._totalmass <=0.0):
+		if(self._total_mass <=0.0):
 			self.calcmass()
 		return
 	

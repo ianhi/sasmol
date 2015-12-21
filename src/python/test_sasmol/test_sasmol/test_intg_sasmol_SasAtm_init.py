@@ -31,7 +31,7 @@ class Test_intg_sasmol_SasAtm_init(MockerTestCase):
       #
       o=sasmol.SasAtm()
       self.assertEqual(o.id(),None)
-      self.assertEqual(o.totalmass(),0.0)
+      self.assertEqual(o.total_mass(),0.0)
       self.assertEqual(o.natoms(),0)
       self.assertEqual(o.mass(),None)
       self.assertEqual(o.coor(),None)
@@ -45,7 +45,7 @@ class Test_intg_sasmol_SasAtm_init(MockerTestCase):
       id=3
       o=sasmol.SasAtm(id)
       self.assertEqual(o.id(),id)
-      self.assertEqual(o.totalmass(),0.0)
+      self.assertEqual(o.total_mass(),0.0)
       self.assertEqual(o.natoms(),0)
       self.assertEqual(o.mass(),None)
       self.assertEqual(o.coor(),None)
@@ -59,7 +59,7 @@ class Test_intg_sasmol_SasAtm_init(MockerTestCase):
       f=''
       o=sasmol.SasAtm(filename=f)
       self.assertEqual(o.id(),None)
-      self.assertEqual(o.totalmass(),0.0)
+      self.assertEqual(o.total_mass(),0.0)
       self.assertEqual(o.natoms(),0)
       self.assertEqual(o.mass(),None)
       self.assertEqual(o.coor(),None)
@@ -75,7 +75,7 @@ class Test_intg_sasmol_SasAtm_init(MockerTestCase):
       f = ''
       o=sasmol.SasAtm(id,f)
       self.assertEqual(o.id(),id)
-      self.assertEqual(o.totalmass(),0.0)
+      self.assertEqual(o.total_mass(),0.0)
       self.assertEqual(o.natoms(),0)
       self.assertEqual(o.mass(),None)
       self.assertEqual(o.coor(),None)

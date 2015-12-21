@@ -20,7 +20,6 @@ from sasmol.test_sasmol.util import env, util
 from unittest import main, skipIf
 from mocker import Mocker, MockerTestCase, ANY, ARGS, KWARGS
 import sasmol.sasmol as sasmol
-import sasmol.sascalc as sascalc
 
 import numpy
 
@@ -49,7 +48,7 @@ class Test_sascalc_Move_masscheck(MockerTestCase):
     def test_one_atom_pdb(self):
         self.o.read_pdb(DataPath+'1ATM.pdb')
 	self.o.masscheck(0)
-        result_totalmass  = self.o.totalmass()
+        result_totalmass  = self.o.total_mass()
         result_mass = self.o.mass()
         expected_mass = [14.00672]
         expected_totalmass = sum(expected_mass)
@@ -59,7 +58,7 @@ class Test_sascalc_Move_masscheck(MockerTestCase):
     def test_two_aa_pdb(self):
         self.o.read_pdb(DataPath+'2AAD.pdb')
 	self.o.masscheck(0)
-        result_totalmass  = self.o.totalmass()
+        result_totalmass  = self.o.total_mass()
         result_mass = self.o.mass()
         expected_mass = [14.00672, 12.01078, 12.01078, 15.99943, 12.01078, 12.01078, 12.01078, \
                           12.01078, 14.00672, 12.01078, 12.01078, 15.99943, 12.01078, 15.99943, 12.01078]
@@ -70,7 +69,7 @@ class Test_sascalc_Move_masscheck(MockerTestCase):
     def test_rna_pdb(self):
         self.o.read_pdb(DataPath+'rna.pdb')
 	self.o.masscheck(0)
-        result_totalmass  = self.o.totalmass()
+        result_totalmass  = self.o.total_mass()
         result_mass = self.o.mass()
         expected_totalmass = 106197.087
         self.assertAlmostEqual(expected_totalmass, result_totalmass, self.tol)
@@ -78,7 +77,7 @@ class Test_sascalc_Move_masscheck(MockerTestCase):
     def test_1CRN_pdb(self):
         self.o.read_pdb(DataPath+'1CRN.pdb')
 	self.o.masscheck(0)
-        result_totalmass  = self.o.totalmass()
+        result_totalmass  = self.o.total_mass()
         result_mass = self.o.mass()
         expected_totalmass = 4412.904
         self.assertAlmostEqual(expected_totalmass, result_totalmass, self.tol)
@@ -87,7 +86,7 @@ class Test_sascalc_Move_masscheck(MockerTestCase):
     def test_1KP8_pdb(self):
         self.o.read_pdb(DataPath+'1KP8.pdb')
 	self.o.masscheck(0)
-        result_totalmass  = self.o.totalmass()
+        result_totalmass  = self.o.total_mass()
         result_mass = self.o.mass()
         expected_totalmass = 766109.266
         self.assertAlmostEqual(expected_totalmass, result_totalmass, self.tol)

@@ -34,7 +34,7 @@ class Test_intg_sasmol_SasAss_init(MockerTestCase):
       id=3
       o=sasmol.SasAss(id)
       self.assertEqual(o.id(),id)
-      self.assertEqual(o.totalmass(),0.0)
+      self.assertEqual(o.total_mass(),0.0)
       self.assertEqual(o.natoms(),0)
       self.assertEqual(o.mass(),None)
       self.assertEqual(o.coor(),None)

@@ -116,18 +116,18 @@ class Calculate(object):
         '''
 		
         standard_atomic_weight = self.amu() 
-        self._totalmass=0.0
+        self._total_mass=0.0
         self._mass=numpy.zeros(len(self._element),numpy.float)
         count=0	
         for element in self._element:
             if element in standard_atomic_weight:
-                self._totalmass=self._totalmass+standard_atomic_weight[element]	
+                self._total_mass=self._total_mass+standard_atomic_weight[element]	
                 self._mass[count]=standard_atomic_weight[element]
                 count=count+1
             else:
                 count=count+1
 
-        return self._totalmass
+        return self._total_mass
 
 
     def calculate_center_of_mass(self, **kwargs):
@@ -147,12 +147,12 @@ class Calculate(object):
 
         frame = 0 
 
-        if(self._totalmass <=0.0):
+        if(self._total_mass <=0.0):
             self.calculate_mass() 
         x=self._coor[frame,:,0] ; y=self._coor[frame,:,1] ; z=self._coor[frame,:,2]	
-        comx=numpy.sum(self._mass*x)/self._totalmass	
-        comy=numpy.sum(self._mass*y)/self._totalmass
-        comz=numpy.sum(self._mass*z)/self._totalmass
+        comx=numpy.sum(self._mass*x)/self._total_mass	
+        comy=numpy.sum(self._mass*y)/self._total_mass
+        comz=numpy.sum(self._mass*z)/self._total_mass
         self._com=numpy.array([comx,comy,comz],numpy.float)
 	
         return self._com

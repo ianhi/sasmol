@@ -50,28 +50,28 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
 
     def test_one_atom_pdb(self):
         self.o.read_pdb(DataPath+'1ATM.pdb')
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         result_com  = self.o.calccom(0)
         expected_com = [73.944, 41.799, 41.652]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
     def test_two_aa_pdb(self):
         self.o.read_pdb(DataPath+'2AAD.pdb')
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         result_com  = self.o.calccom(0)
         expected_com = [75.68045, 43.70790, 41.27621]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
     def test_rna_pdb(self):
         self.o.read_pdb(DataPath+'rna.pdb')
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         result_com  = self.o.calccom(0)
         expected_com = [-8.033, 4.352, 9.231]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
     def test_1CRN_pdb(self):
         self.o.read_pdb(DataPath+'1CRN.pdb')
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         result_com  = self.o.calccom(0)
         expected_com = [9.30026, 9.77488, 6.97776]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
@@ -79,7 +79,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
     @skipIf(os.environ['SASSIE_LARGETEST']=='n',"I am not testing large files")
     def test_1KP8_pdb(self):
         self.o.read_pdb(DataPath+'1KP8.pdb')
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         result_com  = self.o.calccom(0)
         print result_com
         expected_com = [83.286,  0.251, 26.234]

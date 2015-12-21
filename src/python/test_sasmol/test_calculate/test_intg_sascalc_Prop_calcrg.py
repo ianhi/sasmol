@@ -46,7 +46,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
 
     def test_one_atom_pdb(self):
         self.o.read_pdb(DataPath+'1ATM.pdb')
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         expected_rg = 0.0
@@ -54,7 +54,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
 
     def test_two_aa_pdb(self):
         self.o.read_pdb(DataPath+'2AAD.pdb')
-        self.o.setTotalmass(0.0) 
+        self.o.setTotal_mass(0.0) 
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         expected_rg = 2.998744
@@ -62,7 +62,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
 
     def test_rna_pdb(self):
         self.o.read_pdb(DataPath+'rna.pdb')
-        self.o.setTotalmass(0.0) 
+        self.o.setTotal_mass(0.0) 
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         expected_rg = self.calc_exp()
@@ -71,7 +71,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
 
     def test_1CRN_pdb(self):
         self.o.read_pdb(DataPath+'1CRN.pdb')
-        self.o.setTotalmass(0.0) 
+        self.o.setTotal_mass(0.0) 
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         expected_rg = self.calc_exp()
@@ -81,7 +81,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
     @skipIf(os.environ['SASSIE_LARGETEST']=='n',"I am not testing large files")
     def test_1KP8_pdb(self):
         self.o.read_pdb(DataPath+'1KP8.pdb')
-        self.o.setTotalmass(0.0) 
+        self.o.setTotal_mass(0.0) 
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         expected_rg = self.calc_exp()

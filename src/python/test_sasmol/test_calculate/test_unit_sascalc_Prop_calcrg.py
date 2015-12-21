@@ -46,7 +46,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_one_atom(self):
         self.o.setElement(['C'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o.element()))
         result_rg  = self.o.calcrg(0)
         expected_rg = 0.0
@@ -55,7 +55,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_two_atoms(self):
         self.o.setElement(['C', 'AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[4.0, 5.0, 6.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o.element()))
         result_rg  = self.o.calcrg(0)
         expected_rg = 3.3265416
@@ -64,7 +64,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_six_atoms_duplicate(self):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[4.0, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         expected_rg = self.calc_exp()
@@ -73,7 +73,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_six_atoms_duplicate_inf1(self):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[util.HUGE, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         expected_rg = util.INF
@@ -82,7 +82,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_six_atoms_duplicate_inf2(self):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[util.INF, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         self.assertTrue(numpy.isnan(result_rg))
@@ -90,7 +90,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_six_atoms_duplicate_nan(self):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[util.NAN, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         self.assertTrue(numpy.isnan(result_rg))
@@ -98,7 +98,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_six_atoms_duplicate_tiny(self):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[util.TINY, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))
         result_rg  = self.o.calcrg(0)
         expected_rg = self.calc_exp()
@@ -107,7 +107,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_six_atoms_duplicate_zero(self):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[util.ZERO, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))        
         result_rg  = self.o.calcrg(0)
         expected_rg = self.calc_exp()
@@ -116,7 +116,7 @@ class Test_sascalc_Prop_calcrg(MockerTestCase):
     def test_wrong(self):
         self.o.setElement(['X','M'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[7.0, 8.0, 9.0]]],floattype))
-        self.o.setTotalmass(0.0)
+        self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))        
         result_rg  = self.o.calcrg(0)
         import math

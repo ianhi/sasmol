@@ -60,8 +60,8 @@ class Test_intg_sasmol_SasAtm_Type(MockerTestCase):
    def test_totalmass(self):
       expected = 100.0
       self.o.read_pdb(DataPath+'1ATM.pdb')
-      self.o.setTotalmass(expected)
-      result = self.o.totalmass()
+      self.o.setTotal_mass(expected)
+      result = self.o.total_mass()
       self.assertEqual(expected, result)
 
    def test_unitcell(self):

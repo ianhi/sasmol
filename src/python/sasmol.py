@@ -16,7 +16,7 @@
 '''
 import sys
 import sasio
-import sascalc
+import calculate
 import sasop
 import sassubset
 import sasproperties
@@ -47,13 +47,13 @@ import sasview
 
 '''
 
-class SasAtm(sasio.Files,sascalc.Calculate,sasop.Move,sassubset.Mask,sasproperties.Atomic,saspdbrx.Topology,sasview.View):
+class SasAtm(sasio.Files,calculate.Calculate,sasop.Move,sassubset.Mask,sasproperties.Atomic,saspdbrx.Topology,sasview.View):
 
     '''
 	SasAtm is the base class to build and deal with atomistic systems.
 	The various methods described herein are separated in regards to
 	their function.  The class inherits file input/output and 
-	manipulation abilities from the sasio, sascalc, and sasop modules.
+	manipulation abilities from the sasio, calculate, and sasop modules.
 
     '''
 
@@ -64,7 +64,7 @@ class SasAtm(sasio.Files,sascalc.Calculate,sasop.Move,sassubset.Mask,sasproperti
 ###	OPEN	Test the init of ancestor init functions
 
         self._id=id
-        self._totalmass=0.0	
+        self._total_mass=0.0	
         self._natoms=0
         self._mass=None
         self._coor=None
@@ -273,13 +273,13 @@ class SasAtm(sasio.Files,sascalc.Calculate,sasop.Move,sassubset.Mask,sasproperti
     def setMass(self,newValue):
         self._mass = newValue
 
-    def totalmass(self):
-        if(self._totalmass==None ):
-            self._totalmass=sascalc.Calculate.calcmass(self)
-        return self._totalmass	
+    def total_mass(self):
+        if(self._total_mass==None ):
+            self._total_mass=calculate.Calculate.calcmass(self)
+        return self._total_mass	
 
-    def setTotalmass(self,newValue):
-        self._totalmass = newValue
+    def setTotal_mass(self,newValue):
+        self._total_mass = newValue
 
     def unitcell(self):
         return self._unitcell
