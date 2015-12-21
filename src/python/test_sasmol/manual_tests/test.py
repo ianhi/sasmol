@@ -2,38 +2,31 @@ import os
 import sasmol.sasmol as sasmol
 import sasmol.calculate as calculate
 
-def name_usage_test(m):
 
-    calc = calculate.Calculate
+pdb_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
 
-    print 'calc.calculate_center_of_mass = ',calc.calculate_center_of_mass(m)
+m = sasmol.SasMol(0)
 
-    calc_com = calc.calculate_center_of_mass
+try:
+    m.read_pdb("hiv1_gag.pdb")
+except:
+    m.read_pdb(pdb_file_path+"hiv1_gag.pdb")
 
-    calc_rg = calc.calculate_radius_of_gyration
+calc = calculate.Calculate
 
-    print 'calc_com = ',calc_com(m)
+print 'calc.calculate_center_of_mass = ',calc.calculate_center_of_mass(m)
+
+calc_com = calc.calculate_center_of_mass
+
+calc_rg = calc.calculate_radius_of_gyration
+
+print 'calc_com = ',calc_com(m)
      
-    print 'calc_rg = ',calc_rg(m,0)
+print 'calc_rg = ',calc_rg(m,0)
 
 
-if __name__ == '__main__':
+'''
 
-    pdb_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
-
-    m = sasmol.SasMol(0)
-
-    try:
-        m.read_pdb("hiv1_gag.pdb")
-    except:
-        m.read_pdb(pdb_file_path+"hiv1_gag.pdb")
-
-    name_usage_test(m)
-
-    '''
-
-    3
-    down vote
     You just put them in __init__.py.
 
     So with test/classes.py being:
@@ -55,4 +48,4 @@ if __name__ == '__main__':
     >>> test.Helper
     <class 'test.Helper'>
 
-    '''
+'''
