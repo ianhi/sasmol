@@ -37,15 +37,12 @@ class Calculate(object):
     '''
     This class calculates various properties of the object.
 
-    TODO:  Need to think about sasmol object in epydocs
     TODO:  Need to write a generic driver to loop over single or multiple frames
     TODO:  Exception handling
     TODO:  Generic loop w/ multiprocessing
     TODO:  Cleaner doc-strings
     TODO:  Main header information streamlined
     TODO:  All spacing and naming conventions
-
-    backward compatiability methods: need to remove this in stage 2
 
     '''
 
@@ -61,6 +58,8 @@ class Calculate(object):
         at the end of the dictionary.
 
         @type   self                :   sasmol object 
+    
+        @param  self                :   intialized sasmol object be used to perform calculation
 
         @type   kwargs              :   optional future arguments
 
@@ -70,22 +69,21 @@ class Calculate(object):
 
         '''
 	
-        #if self._debug:
-        #    print '\nHELLO FROM THE DEEP UNDERWORLD OF DEBUGGING\n'
-        #else:
-        #    print '\nwhy is self._debug False?\n', self._debug
-             	
         standard_atomic_weight = self.amu() 
-        self._total_mass=0.0
-        self._mass=numpy.zeros(len(self._element),numpy.float)
-        count=0	
+        self._total_mass = 0.0
+        self._mass = numpy.zeros(len(self._element),numpy.float)
+
+        count = 0	
+        
         for element in self._element:
             if element in standard_atomic_weight:
-                self._total_mass=self._total_mass+standard_atomic_weight[element]	
-                self._mass[count]=standard_atomic_weight[element]
-                count=count+1
+                self._total_mass = self._total_mass+standard_atomic_weight[element]	
+                self._mass[count] = standard_atomic_weight[element]
+                count += 1
             else:
-                count=count+1
+                pass
+
+#               need to return an error that element was not found
 
         return self._total_mass
 
@@ -96,6 +94,8 @@ class Calculate(object):
         This method calculates the center of mass of the object.  
 		
         @type   self                :   sasmol object 
+    
+        @param  self                :   intialized sasmol object be used to perform calculation
 
         @type   kwargs              :   optional future arguments
 
@@ -109,13 +109,18 @@ class Calculate(object):
         
         '''
 
-        if(self._total_mass <=0.0):
+        if(self._total_mass <= 0.0):
             self.calculate_mass() 
-        x=self._coor[frame,:,0] ; y=self._coor[frame,:,1] ; z=self._coor[frame,:,2]	
-        comx=numpy.sum(self._mass*x)/self._total_mass	
-        comy=numpy.sum(self._mass*y)/self._total_mass
-        comz=numpy.sum(self._mass*z)/self._total_mass
-        self._com=numpy.array([comx,comy,comz],numpy.float)
+
+        x = self._coor[frame,:,0] 
+        y = self._coor[frame,:,1] 
+        z = self._coor[frame,:,2]	
+
+        comx = numpy.sum(self._mass * x) / self._total_mass	
+        comy = numpy.sum(self._mass * y) / self._total_mass
+        comz = numpy.sum(self._mass * z) / self._total_mass
+
+        self._com = numpy.array([comx,comy,comz], numpy.float)
 	
         return self._com
 
@@ -126,6 +131,7 @@ class Calculate(object):
         This method calculates the radius of gyration of the object
 		
         @type   self                :   sasmol object 
+        @param  self                :   intialized sasmol object be used to perform calculation
 
         @type   frame               :   integer
 
@@ -141,9 +147,9 @@ class Calculate(object):
        
         self._com = self.calculate_center_of_mass(frame)
 	
-        if(self._natoms>0):
-            brg2=((self._coor[frame,:,:]-self._com)*(self._coor[frame,:,:]-self._com))
-            self._rg=numpy.sqrt(numpy.sum(numpy.sum(brg2))/self._natoms)
+        if(self._natoms > 0):
+            brg2 = ((self._coor[frame,:,:] - self._com) * (self._coor[frame,:,:] - self._com))
+            self._rg = numpy.sqrt(numpy.sum(numpy.sum(brg2)) / self._natoms)
 		
         return self._rg
 
@@ -163,6 +169,8 @@ class Calculate(object):
 		
         @type   self                :   sasmol object 
 
+        @param  self                :   intialized sasmol object be used to perform calculation
+
         @type   other               :   sasmol object
 
         @type   kwargs              :   optional future arguments
@@ -175,15 +183,15 @@ class Calculate(object):
 
 	###	OPEN	Add frame support here?
         try:
-            dxyz=((self._coor-other._coor)*(self._coor-other._coor))
-            self._rmsd=numpy.sqrt((numpy.sum(dxyz))/self._natoms)
+            dxyz = ((self._coor - other._coor) * (self._coor - other._coor))
+            self._rmsd = numpy.sqrt((numpy.sum(dxyz)) / self._natoms)
         except:
-            if(self._natoms!=other._natoms):
+            if(self._natoms != other._natoms):
                 print 'number of atoms in (1) != (2)'
                 print 'rmsd not calculated: None returned'
                 print 'number of atoms in self is < 1'
                 print 'number of atoms in other is < 1'
-                self._rmsd=None
+                self._rmsd = None
 
         return self._rmsd
 
@@ -200,6 +208,8 @@ class Calculate(object):
         values should be done in the calling method.
 		
         @type   self                :   sasmol object 
+    
+        @param  self                :   intialized sasmol object be used to perform calculation
 
         @type   frame               :   integer
 
@@ -216,38 +226,40 @@ class Calculate(object):
 
         com = self.calculate_center_of_mass(frame)
 
-        sasop.Move.center(self,frame)
+        sasop.Move.center(self, frame)
 
-        Ixx=0.0 ; Iyy=0.0 ; Izz=0.0
-        Ixy=0.0 ; Ixz=0.0 ; Iyz=0.0
-        Iyx=0.0 ; Izx=0.0 ; Izy=0.0
+        Ixx = 0.0 ; Iyy = 0.0 ; Izz = 0.0
+        Ixy = 0.0 ; Ixz = 0.0 ; Iyz = 0.0
+        Iyx = 0.0 ; Izx = 0.0 ; Izy = 0.0
 	
         for i in range(self._natoms):
-            xp=self._coor[frame,i,0] ; yp=self._coor[frame,i,1] ; zp=self._coor[frame,i,2]
-            Ixx=Ixx+self._mass[i]*(yp*yp+zp*zp)
-            Iyy=Iyy+self._mass[i]*(xp*xp+zp*zp)
-            Izz=Izz+self._mass[i]*(xp*xp+yp*yp)
+           
+            xp = self._coor[frame, i, 0] ; yp = self._coor[frame, i, 1] ; zp = self._coor[frame, i, 2]
+            
+            Ixx = Ixx + self._mass[i] *(yp * yp + zp * zp)
+            Iyy = Iyy + self._mass[i] *(xp * xp + zp * zp)
+            Izz = Izz + self._mass[i] *(xp * xp + yp * yp)
 	
-            Ixy=Ixy-self._mass[i]*xp*yp
-            Ixz=Ixz-self._mass[i]*xp*zp
-            Iyz=Iyz-self._mass[i]*yp*zp
-            Iyx=Iyx-self._mass[i]*yp*xp
-            Izx=Izx-self._mass[i]*zp*xp
-            Izy=Izy-self._mass[i]*zp*yp
+            Ixy = Ixy - self._mass[i] * xp * yp
+            Ixz = Ixz - self._mass[i] * xp * zp
+            Iyz = Iyz - self._mass[i] * yp * zp
+            Iyx = Iyx - self._mass[i] * yp * xp
+            Izx = Izx - self._mass[i] * zp * xp
+            Izy = Izy - self._mass[i] * zp * yp
 	
-        I=numpy.array([[Ixx,Ixy,Ixz],[Iyx,Iyy,Iyz],[Izx,Izy,Izz]])
+        I = numpy.array([[Ixx, Ixy, Ixz] , [Iyx , Iyy , Iyz], [Izx, Izy, Izz]])
 
-        if numpy.linalg.matrix_rank(I)<3:
+        if numpy.linalg.matrix_rank(I) < 3:
             print("You are requesting the pmi calculation for a singular system.")
             print("The eigen-decomposition of this system is not defined")
 
             uk = None ; ak = None ; I = None 
         else:
-            uk,ak=numpy.linalg.eig(I)
+            uk, ak = numpy.linalg.eig(I)
 
-        sasop.Move.moveto(self,frame,com)
+        sasop.Move.moveto(self, frame, com)
 
-        return uk,ak,I
+        return uk, ak, I
 
 #uk =  [  1.30834716e+07   1.91993314e+08   1.85015201e+08]
 #ak =  [[-0.08711655 -0.97104917  0.22242802]
@@ -265,6 +277,8 @@ class Calculate(object):
 		
         @type   self                :   sasmol object 
 
+        @param  self                :   intialized sasmol object be used to perform calculation
+
         @type   kwargs              :   optional future arguments
 
         @rtype                      :   float array
@@ -274,14 +288,14 @@ class Calculate(object):
 
         '''
 
-        min_x=numpy.min(self._coor[:,:,0]); max_x=numpy.max(self._coor[:,:,0])		
-        min_y=numpy.min(self._coor[:,:,1]); max_y=numpy.max(self._coor[:,:,1])		
-        min_z=numpy.min(self._coor[:,:,2]); max_z=numpy.max(self._coor[:,:,2])		
+        min_x = numpy.min(self._coor[:, :, 0]); max_x = numpy.max(self._coor[:, :, 0])		
+        min_y = numpy.min(self._coor[:, :, 1]); max_y = numpy.max(self._coor[:, :, 1])		
+        min_z = numpy.min(self._coor[:, :, 2]); max_z = numpy.max(self._coor[:, :, 2])		
 
-        self._total_minimum=numpy.array([min_x,min_y,min_z])
-        self._total_maximum=numpy.array([max_x,max_y,max_z])
+        self._total_minimum = numpy.array([min_x, min_y, min_z])
+        self._total_maximum = numpy.array([max_x, max_y, max_z])
 
-        return [self._total_minimum,self._total_maximum]
+        return [self._total_minimum, self._total_maximum]
 
 
     def calculate_minimum_and_maximum_one_frame(self, frame, **kwargs):
@@ -292,6 +306,8 @@ class Calculate(object):
         A numpy array of min and max values are returned
 		
         @type   self                :   sasmol object 
+
+        @param  self                :   intialized sasmol object be used to perform calculation
 
         @type   frame               :   integer
 
@@ -306,14 +322,14 @@ class Calculate(object):
         
         '''
 
-        min_x=numpy.min(self._coor[frame,:,0]); max_x=numpy.max(self._coor[frame,:,0])		
-        min_y=numpy.min(self._coor[frame,:,1]); max_y=numpy.max(self._coor[frame,:,1])		
-        min_z=numpy.min(self._coor[frame,:,2]); max_z=numpy.max(self._coor[frame,:,2])		
+        min_x = numpy.min(self._coor[frame, :, 0]); max_x = numpy.max(self._coor[frame, :, 0])		
+        min_y = numpy.min(self._coor[frame, :, 1]); max_y = numpy.max(self._coor[frame, :, 1])		
+        min_z = numpy.min(self._coor[frame, :, 2]); max_z = numpy.max(self._coor[frame, :, 2])		
 
-        self._minimum=numpy.array([min_x,min_y,min_z])
-        self._maximum=numpy.array([max_x,max_y,max_z])
+        self._minimum = numpy.array([min_x, min_y, min_z])
+        self._maximum = numpy.array([max_x, max_y, max_z])
 
-        return [self._minimum,self._maximum]
+        return [self._minimum, self._maximum]
 
 
     def calculate_minimum_and_maximum_all_frames(self, filename, **kwargs):
@@ -324,6 +340,8 @@ class Calculate(object):
         A numpy array of min and max values are returned
 		
         @type   self                :   sasmol object 
+
+        @param  self                :   intialized sasmol object be used to perform calculation
 
         @type   filename            :   string
 
@@ -354,8 +372,8 @@ class Calculate(object):
 	
         for i in xrange(number_of_frames):
 
-            if(file_type=='dcd'):	
-                self.read_dcd_step(dcdfilepointer_array,i)
+            if(file_type == 'dcd'):	
+                self.read_dcd_step(dcdfilepointer_array, i)
                 this_minmax = self.calculate_minimum_and_maximum_one_frame(0)
             else:	
                 this_minmax = self.calcminmax_frame(i)
@@ -372,13 +390,13 @@ class Calculate(object):
             if((max_y == None) or (this_max_y > max_y)): max_y = this_max_y 
             if((max_z == None) or (this_max_z > max_z)): max_z = this_max_z 
             
-        if(file_type=='dcd'):	
+        if(file_type == 'dcd'):	
             self.close_dcd_read(dcdfile)
 		
-        self._minimum = numpy.array([min_x,min_y,min_z])
-        self._maximum = numpy.array([max_x,max_y,max_z])
+        self._minimum = numpy.array([min_x, min_y, min_z])
+        self._maximum = numpy.array([max_x, max_y, max_z])
 	
-        return [self._minimum,self._maximum]
+        return [self._minimum, self._maximum]
 
 
     def calculate_residue_charge(self, **kwargs):
@@ -396,6 +414,8 @@ class Calculate(object):
         print 'res-charge = ',residue_charge[0]
 		
         @type   self                :   sasmol object 
+
+        @param  self                :   intialized sasmol object be used to perform calculation
 
         @type   kwargs              :   optional future arguments
 
@@ -423,7 +443,7 @@ class Calculate(object):
             this_charge = atom_charge[i]
 
             if(this_resid != last_resid or i == natoms-1):
-                charge_residue_sum.append([last_resid,charge_sum])
+                charge_residue_sum.append([last_resid, charge_sum])
                 charge_sum = this_charge
                 last_resid = this_resid
             else:
@@ -439,7 +459,7 @@ class Calculate(object):
                     charge_residue.append(charge_residue_sum[j][1])
                     continue
 
-        self.setResidue_charge(numpy.array(charge_residue,numpy.float32))
+        self.setResidue_charge(numpy.array(charge_residue, numpy.float32))
 
         return
 
@@ -450,6 +470,8 @@ class Calculate(object):
         Method to determine the number of each element in the molecule
 		
         @type   self                :   sasmol object 
+
+        @param  self                :   intialized sasmol object be used to perform calculation
 
         @type   kwargs              :   optional future arguments
 
