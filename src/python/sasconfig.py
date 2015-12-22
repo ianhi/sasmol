@@ -13,8 +13,8 @@ __cuda__ = False
 
 __openmm__ = False
 
-__level__ = 'WARNING'
 __level__ = 'DEBUG'
+__level__ = 'WARNING'
 
 ###     END SYSADMIN EDIT ###
 ###     END SYSADMIN EDIT ###

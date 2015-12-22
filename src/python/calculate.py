@@ -69,7 +69,12 @@ class Calculate(object):
         @return                     :   mass of the sasmol object
 
         '''
-		
+	
+        #if self._debug:
+        #    print '\nHELLO FROM THE DEEP UNDERWORLD OF DEBUGGING\n'
+        #else:
+        #    print '\nwhy is self._debug False?\n', self._debug
+             	
         standard_atomic_weight = self.amu() 
         self._total_mass=0.0
         self._mass=numpy.zeros(len(self._element),numpy.float)
@@ -332,6 +337,7 @@ class Calculate(object):
                                     :   [ [ [ min_x, min_y, min_z ], [max_x, max_y, max_z] ] ]
         
         '''
+
         	
         if 'pdb' in kwargs:
             file_type = 'pdb'
@@ -344,6 +350,7 @@ class Calculate(object):
 
         min_x = None ; min_y = None ; min_z = None
         max_x = None ; max_y = None ; max_z = None
+        
 	
         for i in xrange(number_of_frames):
 

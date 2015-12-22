@@ -47,6 +47,11 @@ import sasview
 
 '''
 
+import sasconfig as sasconfig
+
+class Error(Exception):
+    pass
+
 class SasAtm(sasio.Files,calculate.Calculate,sasop.Move,sassubset.Mask,sasproperties.Atomic,saspdbrx.Topology,sasview.View):
 
     '''
@@ -57,19 +62,27 @@ class SasAtm(sasio.Files,calculate.Calculate,sasop.Move,sassubset.Mask,sasproper
 
     '''
 
-    ###	OPEN	If you load an atom it doesn't check if it IS an atom 
+    def __init__(self, id = None, debug = None):
 
-    def __init__(self,id=None,filename=None):
+        self._id = 0
+        self._debug = False
+        
+        self._total_mass = 0.0	
+        self._natoms = 0
+        self._mass = None
+        self._coor = None
+        self._com = None
 
-###	OPEN	Test the init of ancestor init functions
+        if id != None:
+            self._id = id
 
-        self._id=id
-        self._total_mass=0.0	
-        self._natoms=0
-        self._mass=None
-        self._coor=None
-        self._com=None
+        if sasconfig.__level__ == 'DEBUG':
+            self._debug = True 
 
+        if debug != None:
+            self._debug = debug 
+
+              
     def setId(self,newValue):
         self._id = newValue
 
@@ -540,9 +553,9 @@ class SasMol(SasAtm):
 
 ###	OPEN	If you load a molecule it doesn't check to see if it IS an molecule
 
-    def __init__(self,id):
-        SasAtm.__init__(self,id)
-        self._name='Mol_None'
+    def __init__(self, id = None, debug = None):
+        SasAtm.__init__(self, id, debug)
+        self._name = 'Mol_None'
 
     def molcharge(self):
         pass

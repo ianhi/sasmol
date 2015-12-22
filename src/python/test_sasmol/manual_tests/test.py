@@ -5,7 +5,9 @@ import sasmol.calculate as calculate
 
 pdb_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
 
-m = sasmol.SasMol(0)
+m = sasmol.SasMol(debug=True)
+m = sasmol.SasMol(debug=False)
+m = sasmol.SasMol()
 
 try:
     m.read_pdb("hiv1_gag.pdb")
@@ -23,6 +25,8 @@ calc_rg = calc.calculate_radius_of_gyration
 print 'calc_com = ',calc_com(m,0)
      
 print 'calc_rg = ',calc_rg(m,0)
+
+print 'm.calculate_mass() = ', m.calculate_mass()
 
 
 '''

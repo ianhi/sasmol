@@ -30,7 +30,7 @@ class Test_intg_sasmol_SasAtm_init(MockerTestCase):
       '''
       #
       o=sasmol.SasAtm()
-      self.assertEqual(o.id(),None)
+      self.assertEqual(o.id(),0)
       self.assertEqual(o.total_mass(),0.0)
       self.assertEqual(o.natoms(),0)
       self.assertEqual(o.mass(),None)
@@ -50,37 +50,6 @@ class Test_intg_sasmol_SasAtm_init(MockerTestCase):
       self.assertEqual(o.mass(),None)
       self.assertEqual(o.coor(),None)
       self.assertEqual(o.com(),None)
-
-   def test_filename(self):
-      '''
-      test initializer with filename
-      '''
-      #
-      f=''
-      o=sasmol.SasAtm(filename=f)
-      self.assertEqual(o.id(),None)
-      self.assertEqual(o.total_mass(),0.0)
-      self.assertEqual(o.natoms(),0)
-      self.assertEqual(o.mass(),None)
-      self.assertEqual(o.coor(),None)
-      self.assertEqual(o.com(),None)
-      #self.assertEqual(o.filename(),f)
-
-   def test_id_filename(self):
-      '''
-      test initializer with id
-      '''
-      #
-      id=3
-      f = ''
-      o=sasmol.SasAtm(id,f)
-      self.assertEqual(o.id(),id)
-      self.assertEqual(o.total_mass(),0.0)
-      self.assertEqual(o.natoms(),0)
-      self.assertEqual(o.mass(),None)
-      self.assertEqual(o.coor(),None)
-      self.assertEqual(o.com(),None)
-      #self.assertEqual(o.filename(),f)
 
    def tearDown(self):
       pass
