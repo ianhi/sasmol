@@ -44,7 +44,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.zeros((1,0,3),floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         self.assertTrue(numpy.isnan(result_rmsd))
 
     def test_one_overlap_atom(self):
@@ -52,7 +52,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[1.0, 2.0, 3.0]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = 0.0
         self.assertAlmostEqual(expected_rmsd, result_rmsd)
 
@@ -61,7 +61,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[4.0, 5.0, 6.0]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = 3.0*numpy.sqrt(3.0)
         self.assertAlmostEqual(expected_rmsd, result_rmsd)
 
@@ -70,7 +70,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[12.0, 53.0, 67.0],[76.0, 87.0, 96.0]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = self.calc_exp()
         self.assertAlmostEqual(expected_rmsd, result_rmsd)
 
@@ -79,7 +79,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[2.0, 12.0, 35.0],[12.0, 53.0, 67.0],[76.0, 87.0, 96.0],[12.0, 33.0, 52.0],[2.3, 4.3, 6.8],[0.0,  22.5,33.6]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = self.calc_exp()
         self.assertAlmostEqual(expected_rmsd, result_rmsd)
 
@@ -88,7 +88,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[2.0, 12.0, 35.0],[12.0, util.HUGE, 67.0],[76.0, 87.0, 96.0],[12.0, 33.0, 52.0],[2.3, 4.3, 6.8],[0.0,  22.5,33.6]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = util.INF
         self.assertAlmostEqual(expected_rmsd, result_rmsd)
 
@@ -97,7 +97,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[2.0, 12.0, 35.0],[12.0, 53.0, 67.0],[76.0, 87.0, util.INF],[12.0, 33.0, 52.0],[2.3, 4.3, 6.8],[0.0,  22.5,33.6]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = util.INF
         self.assertAlmostEqual(expected_rmsd, result_rmsd)
 
@@ -106,7 +106,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[2.0, 12.0, 35.0],[12.0, 53.0, 67.0],[76.0, 87.0, util.NAN],[12.0, 33.0, 52.0],[2.3, 4.3, 6.8],[0.0,  22.5,33.6]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         self.assertTrue(numpy.isnan(result_rmsd))
 
     def test_6_atoms_tiny(self):
@@ -114,7 +114,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[2.0, 12.0, 35.0],[12.0, 53.0, 67.0],[76.0, 87.0, util.TINY],[12.0, 33.0, 52.0],[2.3, 4.3, 6.8],[0.0,  22.5,33.6]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = self.calc_exp()
         self.assertAlmostEqual(expected_rmsd, result_rmsd)
 
@@ -123,7 +123,7 @@ class Test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o1.setNatoms(len(self.o1._coor[0]))
         self.o2.setCoor(numpy.array([[[2.0, 12.0, 35.0],[12.0, 53.0, 67.0],[76.0, 87.0, util.ZERO],[12.0, 33.0, 52.0],[2.3, 4.3, 6.8],[0.0,  22.5,33.6]]],floattype))
         self.o2.setNatoms(len(self.o2._coor[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = self.calc_exp()
         self.assertAlmostEqual(expected_rmsd, result_rmsd)
 

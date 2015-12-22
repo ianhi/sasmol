@@ -21,7 +21,6 @@ from unittest import main
 from mocker import Mocker, MockerTestCase, ANY, ARGS, KWARGS
 import sasmol.sasmol as sasmol
 import sasmol.sasop as sasop
-import sasmol.sascalc as sascalc
 
 import numpy
 
@@ -67,8 +66,8 @@ class Test_intg_sasop_Move_align(MockerTestCase):
         self.o2Sub.read_pdb(DataPath+'1ATM.pdb')
 
         frame = 0
-        comO1Sub = self.o1Sub.calccom(frame)
-        comO2Sub = self.o2Sub.calccom(frame)
+        comO1Sub = self.o1Sub.calculate_center_of_mass(frame)
+        comO2Sub = self.o2Sub.calculate_center_of_mass(frame)
         self.o1Sub.center(frame)
         self.o2Sub.center(frame)
         coorO1Sub = self.o1Sub.coor()[frame]
@@ -90,8 +89,8 @@ class Test_intg_sasop_Move_align(MockerTestCase):
         self.o2Sub.read_pdb(DataPath+'2AAD.pdb')
 
         frame = 0
-        comO1Sub = self.o1Sub.calccom(frame)
-        comO2Sub = self.o2Sub.calccom(frame)
+        comO1Sub = self.o1Sub.calculate_center_of_mass(frame)
+        comO2Sub = self.o2Sub.calculate_center_of_mass(frame)
         self.o1Sub.center(frame)
         self.o2Sub.center(frame)
         coorO1Sub = self.o1Sub.coor()[frame]
@@ -113,8 +112,8 @@ class Test_intg_sasop_Move_align(MockerTestCase):
         self.o2Sub.read_pdb(moduleDataPath+'1CRN-rot.pdb')
 
         frame = 0
-        comO1Sub = self.o1Sub.calccom(frame)
-        comO2Sub = self.o2Sub.calccom(frame)
+        comO1Sub = self.o1Sub.calculate_center_of_mass(frame)
+        comO2Sub = self.o2Sub.calculate_center_of_mass(frame)
         self.o1Sub.center(frame)
         self.o2Sub.center(frame)
         coorO1Sub = self.o1Sub.coor()[frame]
@@ -136,8 +135,8 @@ class Test_intg_sasop_Move_align(MockerTestCase):
         self.o2Sub.read_pdb(moduleDataPath+'1CRN-rot-shift.pdb')
 
         frame = 0
-        comO1Sub = self.o1Sub.calccom(frame)
-        comO2Sub = self.o2Sub.calccom(frame)
+        comO1Sub = self.o1Sub.calculate_center_of_mass(frame)
+        comO2Sub = self.o2Sub.calculate_center_of_mass(frame)
         self.o1Sub.center(frame)
         self.o2Sub.center(frame)
         coorO1Sub = self.o1Sub.coor()[frame]
@@ -159,8 +158,8 @@ class Test_intg_sasop_Move_align(MockerTestCase):
         self.o2Sub.read_pdb(moduleDataPath+'1CRN-rot-sub.pdb')
 
         frame = 0
-        comO1Sub = self.o1Sub.calccom(frame)
-        comO2Sub = self.o2Sub.calccom(frame)
+        comO1Sub = self.o1Sub.calculate_center_of_mass(frame)
+        comO2Sub = self.o2Sub.calculate_center_of_mass(frame)
         self.o1Sub.center(frame)
         self.o2Sub.center(frame)
         coorO1Sub = self.o1Sub.coor()[frame]

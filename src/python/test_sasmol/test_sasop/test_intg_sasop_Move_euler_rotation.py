@@ -21,7 +21,6 @@ from unittest import main, skipIf
 from mocker import Mocker, MockerTestCase, ANY, ARGS
 import sasmol.sasmol as sasmol
 import sasmol.sasop as sasop
-import sasmol.sascalc as sascalc
 
 import numpy
 
@@ -58,7 +57,7 @@ class Test_intg_sasop_euler_rotate(MockerTestCase):
         #
         self.o.euler_rotate(frame,phi,theta,psi)
         result_coor = self.o.coor()
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_coor:\n'; util.printfl([result_coor]); print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_coor = numpy.array([[[73.944, 41.799, 41.652]]], floattype)
@@ -77,7 +76,7 @@ class Test_intg_sasop_euler_rotate(MockerTestCase):
         #
         self.o.euler_rotate(frame,phi,theta,psi)
         result_coor = self.o.coor()
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_coor:\n'; util.printfl([result_coor]); print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_coor = numpy.array([[[41.652, 41.799, -73.944]]], floattype)
@@ -95,7 +94,7 @@ class Test_intg_sasop_euler_rotate(MockerTestCase):
         #
         self.o.euler_rotate(frame,phi,theta,psi)
         result_coor = self.o.coor()
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_coor:\n'; util.printfl([result_coor]); print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_coor = numpy.array([[[41.652, 41.799, -73.944], [40.456, 42.563, -74.229], [40.463, 43.093, -75.667], [39.401, 43.279, -76.264], [40.336, 43.734, -73.210], [39.926, 43.168, -71.856], [39.354, 44.782, -73.67], [39.946, 44.177, -70.721], [41.647, 43.330, -76.231], [41.730, 43.852, -77.592], [42.184, 42.820, -78.617], [42.656, 43.169, -79.712], [42.648, 45.097, -77.671], [43.910, 44.816, -77.054], [42.000, 46.273, -76.970]]], floattype)
@@ -112,7 +111,7 @@ class Test_intg_sasop_euler_rotate(MockerTestCase):
         psi=numpy.pi/2.0
         #
         self.o.euler_rotate(frame,phi,theta,psi)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_com = numpy.array([-4.352, -8.033, 9.231], floattype)
@@ -125,7 +124,7 @@ class Test_intg_sasop_euler_rotate(MockerTestCase):
         theta=numpy.pi/2.0
         #
         self.o.euler_rotate(frame,theta,theta,theta)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_com = numpy.array([6.978, -9.775, 9.300], floattype)
@@ -141,7 +140,7 @@ class Test_intg_sasop_euler_rotate(MockerTestCase):
         psi=2.3
         #
         self.o.euler_rotate(frame,phi,theta,psi)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_com = numpy.array([47.025, 47.438, 56.242], floattype)

@@ -1,36 +1,27 @@
 import os
 import sasmol.sasmol as sasmol
+import sasmol.calculate as calculate
 
-def com_test(m):
+pdbDataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
 
-    print 'com = ',m.calculate_center_of_mass()
-    print 'com = ',m.calccom(0)
+m = sasmol.SasMol(0)
 
-    m.setCom = m.calculate_center_of_mass()
+try:
+    m.read_pdb("hiv1_gag.pdb")
+except:
+    m.read_pdb(pdbDataPath+"hiv1_gag.pdb")
 
-    print 'm.com() = ',m.com()
+frame = 0
 
-    import sasmol.calculate as calculate
+print 'com = ',m.calculate_center_of_mass(frame)
 
-    print 'ugly = ',calculate.Calculate.calculate_center_of_mass(m)
-    print 'uglier = ',calculate.Calculate.calccom(m,0)
+m.setCom = m.calculate_center_of_mass(frame)
 
-    calc_com = calculate.Calculate.calculate_center_of_mass
+print 'ugly = ',calculate.Calculate.calculate_center_of_mass(m, frame)
 
-    print 'prettier  = ',calc_com(m)
+calc_com = calculate.Calculate.calculate_center_of_mass
 
+print 'prettier  = ',calc_com(m, frame)
 
-if __name__ == '__main__':
-
-    pdbDataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
-
-    m = sasmol.SasMol(0)
-
-    try:
-        m.read_pdb("hiv1_gag.pdb")
-    except:
-        m.read_pdb(pdbDataPath+"hiv1_gag.pdb")
-
-    com_test(m)
 
 

@@ -67,7 +67,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
         with self.assertRaises(Exception):
             self.o.read_pdb(PdbPath+'NULL.pdb')
         with self.assertRaises(Exception):
-           result_pmi  = self.o.calcpmi(0)
+           result_pmi  = self.o.calculate_principle_moments_of_inertia(0)
 
     def test_one_atom_pdb(self):
         return
@@ -75,7 +75,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
          
         self.o.read_pdb(PdbPath+'1ATM.pdb')
         self.o.calculate_mass()
-        result = self.o.calcpmi(0)
+        result = self.o.calculate_principle_moments_of_inertia(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
         result_I = result[2]
@@ -93,7 +93,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
     def test_two_aa_pdb(self):
         self.o.read_pdb(PdbPath+'2AAD.pdb')
         self.o.calculate_mass()
-        result = self.o.calcpmi(0)
+        result = self.o.calculate_principle_moments_of_inertia(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
         result_I = result[2]
@@ -110,7 +110,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
     def test_rna_pdb(self):
         self.o.read_pdb(PdbPath+'rna.pdb')
         self.o.calculate_mass()
-        result = self.o.calcpmi(0)
+        result = self.o.calculate_principle_moments_of_inertia(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
         result_I = result[2]
@@ -126,7 +126,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
     def test_1CRN_pdb(self):
         self.o.read_pdb(PdbPath+'1CRN.pdb')
         self.o.calculate_mass()
-        result = self.o.calcpmi(0)
+        result = self.o.calculate_principle_moments_of_inertia(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
         result_I = result[2]
@@ -143,7 +143,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
     def test_1KP8_pdb(self):
         self.o.read_pdb(PdbPath+'1KP8.pdb')
         self.o.calculate_mass()
-        result = self.o.calcpmi(0)
+        result = self.o.calculate_principle_moments_of_inertia(0)
         result_eigenvalues = result[0]
         result_eigenvectors = result[1].T
         result_I = result[2]
@@ -161,7 +161,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
         with self.assertRaises(Exception):
            self.o.read_pdb(PdbPath+'1PSI.pdb')
         with self.assertRaises(Exception):
-           result_pmi  = self.o.calcpmi(0)
+           result_pmi  = self.o.calculate_principle_moments_of_inertia(0)
 
 
     def tearDown(self):

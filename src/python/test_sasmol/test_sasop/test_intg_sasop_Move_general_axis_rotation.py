@@ -21,7 +21,6 @@ from unittest import main, skipIf
 from mocker import Mocker, MockerTestCase, ANY, ARGS
 import sasmol.sasmol as sasmol
 import sasmol.sasop as sasop
-import sasmol.sascalc as sascalc
 
 import numpy
 
@@ -57,7 +56,7 @@ class Test_intg_sasop_general_rotate(MockerTestCase):
         #
         self.o.general_axis_rotate(frame,theta,0.2,1.3,-3.5)
         result_coor = self.o.coor()
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_coor:\n'; util.printfl([result_coor]); print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_coor = numpy.array([[[73.944, 41.799, 41.652]]], floattype)
@@ -74,7 +73,7 @@ class Test_intg_sasop_general_rotate(MockerTestCase):
         #
         self.o.general_axis_rotate(frame,theta,0.2,1.3,-3.5)
         result_coor = self.o.coor()
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_coor:\n'; util.printfl([result_coor]); print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_coor = numpy.array([[[-215.775, 167.484, 356.058]]], floattype)
@@ -89,7 +88,7 @@ class Test_intg_sasop_general_rotate(MockerTestCase):
         theta=numpy.pi/2.0
         #
         self.o.general_axis_rotate(frame,theta,0.2,1.3,-3.5)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_com = numpy.array([-221.139, 178.873, 343.429], floattype)
@@ -102,7 +101,7 @@ class Test_intg_sasop_general_rotate(MockerTestCase):
         theta=numpy.pi/3.0
         #
         self.o.general_axis_rotate(frame,theta,0.2,1.3,-3.5)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_com = numpy.array([-30.425, -38.942, 44.267], floattype)
@@ -115,7 +114,7 @@ class Test_intg_sasop_general_rotate(MockerTestCase):
         theta=numpy.pi/2.0
         #
         self.o.general_axis_rotate(frame,theta,0,1,0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_com = numpy.array([-6.978, 9.775, 9.300], floattype)
@@ -129,7 +128,7 @@ class Test_intg_sasop_general_rotate(MockerTestCase):
         theta=12.0
         #
         self.o.general_axis_rotate(frame,theta,0,1,0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
         expected_com = numpy.array([84.358, 0.251, -22.552], floattype)

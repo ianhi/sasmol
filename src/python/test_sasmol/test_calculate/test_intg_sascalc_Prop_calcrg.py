@@ -20,7 +20,6 @@ from sasmol.test_sasmol.util import env, util
 from unittest import main, skipIf
 from mocker import Mocker, MockerTestCase, ANY, ARGS
 import sasmol.sasmol as sasmol
-import sasmol.sascalc as sascalc
 
 import numpy
 
@@ -35,20 +34,20 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o=sasmol.SasMol(0)
 
     def calc_exp(self):
-        self.o.calccom(0)
+        self.o.calculate_center_of_mass(0)
         coor = numpy.array((self.o._coor[0]),floattype)
         return numpy.sqrt(numpy.sum((coor-self.o._com)**2)/len(coor))
 
 
     def test_null(self):
         with self.assertRaises(Exception):
-            self.o.calcrg(0)
+            self.o.calculate_radius_of_gyration(0)
 
     def test_one_atom_pdb(self):
         self.o.read_pdb(DataPath+'1ATM.pdb')
         self.o.setTotal_mass(0.0)
         self.o.setNatoms(len(self.o._element))
-        result_rg  = self.o.calcrg(0)
+        result_rg  = self.o.calculate_radius_of_gyration(0)
         expected_rg = 0.0
         self.assertAlmostEqual(expected_rg, result_rg)
 
@@ -56,7 +55,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.read_pdb(DataPath+'2AAD.pdb')
         self.o.setTotal_mass(0.0) 
         self.o.setNatoms(len(self.o._element))
-        result_rg  = self.o.calcrg(0)
+        result_rg  = self.o.calculate_radius_of_gyration(0)
         expected_rg = 2.998744
         self.assertAlmostEqual(expected_rg, result_rg, 5)
 
@@ -64,7 +63,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.read_pdb(DataPath+'rna.pdb')
         self.o.setTotal_mass(0.0) 
         self.o.setNatoms(len(self.o._element))
-        result_rg  = self.o.calcrg(0)
+        result_rg  = self.o.calculate_radius_of_gyration(0)
         expected_rg = self.calc_exp()
         print result_rg, expected_rg
         self.assertAlmostEqual(expected_rg, result_rg, 3)
@@ -73,7 +72,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.read_pdb(DataPath+'1CRN.pdb')
         self.o.setTotal_mass(0.0) 
         self.o.setNatoms(len(self.o._element))
-        result_rg  = self.o.calcrg(0)
+        result_rg  = self.o.calculate_radius_of_gyration(0)
         expected_rg = self.calc_exp()
         print result_rg, expected_rg
         self.assertAlmostEqual(expected_rg, result_rg, 3)
@@ -83,7 +82,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.read_pdb(DataPath+'1KP8.pdb')
         self.o.setTotal_mass(0.0) 
         self.o.setNatoms(len(self.o._element))
-        result_rg  = self.o.calcrg(0)
+        result_rg  = self.o.calculate_radius_of_gyration(0)
         expected_rg = self.calc_exp()
         print result_rg, expected_rg
         self.assertAlmostEqual(expected_rg, result_rg, 3)

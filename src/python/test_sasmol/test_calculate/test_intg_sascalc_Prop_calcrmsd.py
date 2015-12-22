@@ -41,14 +41,14 @@ class test_sascalc_Prop_calcrmsd(MockerTestCase):
 
     def test_null(self):
         with self.assertRaises(Exception):
-            self.o1.calcrmsd(self.o2)
+            self.o1.calculate_root_mean_square_deviation(self.o2)
 
     def test_one_atom_pdb(self):
         self.o1.read_pdb(PdbPath+'1ATM.pdb')
         self.o1.setNatoms(len((self.o1.coor())[0]))
         self.o2.read_pdb(modulePdbPath+'1ATN.pdb')
         self.o2.setNatoms(len((self.o2.coor())[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = 189.20635
         self.assertAlmostEqual(expected_rmsd, result_rmsd,self.tol)
 
@@ -57,7 +57,7 @@ class test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o2.read_pdb(PdbPath+'1ATM.pdb')
         self.o1.setNatoms(len((self.o1.coor())[0]))
         self.o2.setNatoms(len((self.o2.coor())[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)
         expected_rmsd = 0.0
         self.assertAlmostEqual(expected_rmsd, result_rmsd, self.tol)
 
@@ -66,7 +66,7 @@ class test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o2.read_pdb(modulePdbPath+'1CRN-rot.pdb')
         self.o1.setNatoms(len((self.o1.coor())[0]))
         self.o2.setNatoms(len((self.o2.coor())[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)                                              
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)                                              
         expected_rmsd = 29.008
         self.assertAlmostEqual(expected_rmsd, result_rmsd, self.tol) 
 
@@ -75,7 +75,7 @@ class test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o2.read_pdb(modulePdbPath+'1CRN-rot-shift.pdb')
         self.o1.setNatoms(len((self.o1.coor())[0]))
         self.o2.setNatoms(len((self.o2.coor())[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)                                              
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)                                              
         expected_rmsd = 19.831
         self.assertAlmostEqual(expected_rmsd, result_rmsd, self.tol) 
 
@@ -84,7 +84,7 @@ class test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o2.read_pdb(PdbPath+'rna.pdb')
         self.o1.setNatoms(len((self.o1.coor())[0]))
         self.o2.setNatoms(len((self.o2.coor())[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)                                              
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)                                              
         expected_rmsd = 0.0
         self.assertAlmostEqual(expected_rmsd, result_rmsd, self.tol) 
 
@@ -94,7 +94,7 @@ class test_sascalc_Prop_calcrmsd(MockerTestCase):
         self.o2.read_pdb(PdbPath+'1KP8.pdb')
         self.o1.setNatoms(len((self.o1.coor())[0]))
         self.o2.setNatoms(len((self.o2.coor())[0]))
-        result_rmsd  = self.o1.calcrmsd(self.o2)                                              
+        result_rmsd  = self.o1.calculate_root_mean_square_deviation(self.o2)                                              
         expected_rmsd = 0.0
         self.assertAlmostEqual(expected_rmsd, result_rmsd, self.tol) 
 

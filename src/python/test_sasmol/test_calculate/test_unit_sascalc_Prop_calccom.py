@@ -45,7 +45,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement([])
         self.o.setCoor(numpy.zeros((1.0, 0.0, 3.0),floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [util.NAN, util.NAN, util.NAN]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
@@ -53,7 +53,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement(['C'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [1.0, 2.0, 3.0]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
@@ -61,7 +61,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement(['C', 'AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[4.0, 5.0, 6.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [3.69943, 4.69942, 5.69943]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
@@ -69,7 +69,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[4.0, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [1.41253, 3.24053, 4.60498]
         print '\nresult_com \n',result_com
         print '\nexpected_com \n',expected_com
@@ -79,7 +79,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[util.HUGE, 2.0, 3.0],[4.0, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [util.INF, 3.24054, 4.60499]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
@@ -87,7 +87,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[util.INF, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [util.INF, 3.24054, 4.60499]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
@@ -95,7 +95,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[4.0, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, util.NAN, 6.0],[0.0, 2.0, 3.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [1.41253, util.NAN, 4.60499]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
@@ -103,7 +103,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[util.TINY, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [1.13750, 3.24053, 4.60499]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
@@ -111,7 +111,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o.setElement(['C','O','C','1H','KR','AG'])
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[util.ZERO, 5.0, 6.0],[7.0, 8.0, 9.0],[1.0, 3.0, 5.0],[2.0, 4.0, 6.0],[0.0, 2.0, 3.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [1.13750, 3.24053, 4.60499]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 
@@ -119,7 +119,7 @@ class Test_sascalc_Prop_calccom(MockerTestCase):
         self.o._element = ['X','M']
         self.o.setCoor(numpy.array([[[1.0, 2.0, 3.0],[4.0, 5.0, 6.0]]],floattype))
         self.o.setTotal_mass(0.0)
-        result_com  = self.o.calccom(0)
+        result_com  = self.o.calculate_center_of_mass(0)
         expected_com = [util.NAN, util.NAN, util.NAN]
         self.assert_list_almost_equal(expected_com, result_com, self.tol)
 

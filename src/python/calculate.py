@@ -40,46 +40,12 @@ class Calculate(object):
     TODO:  Need to think about sasmol object in epydocs
     TODO:  Need to write a generic driver to loop over single or multiple frames
     TODO:  Exception handling
-    TODO:  Remove or move backward compatiable method wrappers
     TODO:  Generic loop w/ multiprocessing
     TODO:  Cleaner doc-strings
     TODO:  Main header information streamlined
     TODO:  All spacing and naming conventions
 
     backward compatiability methods: need to remove this in stage 2
-
-    '''
-
-    def calcmass(self, **kwargs):
-        return self.calculate_mass(**kwargs)
-
-    def calccom(self, frame, **kwargs):
-        return self.calculate_center_of_mass(**kwargs)
-
-    def calcrg(self, frame, **kwargs):
-        return self.calculate_radius_of_gyration(frame, **kwargs)
-
-    def calcrmsd(self, other, **kwargs):
-        return self.calculate_root_mean_square_deviation(other, **kwargs)
-
-    def calcpmi(self, frame, **kwargs):
-        return self.principle_moments_of_inertia(frame, **kwargs)
-
-    def calcminmax(self, **kwargs):
-        return self.minimum_and_maximum(**kwargs)
-
-    def calcminmax_frame(self, frame, **kwargs):
-        return self.minimum_and_maximum_one_frame(frame, **kwargs)
-
-    def calc_minmax_all_steps(self, filename, **kwargs):
-        return self.minimum_and_maximum_all_frames(filename, **kwargs)
-
-    def calcformula(self, **kwargs):
-        return self.calculate_molecular_formula(self, **kwargs)
-
-
-    '''
-        main methods
 
     '''
 
@@ -119,7 +85,7 @@ class Calculate(object):
         return self._total_mass
 
 
-    def calculate_center_of_mass(self, **kwargs):
+    def calculate_center_of_mass(self, frame, **kwargs):
 	
         '''	
         This method calculates the center of mass of the object.  
@@ -128,13 +94,15 @@ class Calculate(object):
 
         @type   kwargs              :   optional future arguments
 
+        @type   frame               :   integer
+
+        @param  frame               :   frame of trajectory to use
+
         @rtype                      :   float
 
         @return                     :   center of mass of the sasmol object
         
         '''
-
-        frame = 0 
 
         if(self._total_mass <=0.0):
             self.calculate_mass() 
@@ -166,7 +134,7 @@ class Calculate(object):
         
         '''
        
-        self._com = self.calccom(frame)
+        self._com = self.calculate_center_of_mass(frame)
 	
         if(self._natoms>0):
             brg2=((self._coor[frame,:,:]-self._com)*(self._coor[frame,:,:]-self._com))
@@ -215,7 +183,7 @@ class Calculate(object):
         return self._rmsd
 
     
-    def principle_moments_of_inertia(self, frame, **kwargs):
+    def calculate_principle_moments_of_inertia(self, frame, **kwargs):
 
         '''	
         This method calculates the principal moments of inertia
@@ -241,7 +209,7 @@ class Calculate(object):
 
         '''
 
-        com = self.calccom(frame)
+        com = self.calculate_center_of_mass(frame)
 
         sasop.Move.center(self,frame)
 
@@ -284,7 +252,7 @@ class Calculate(object):
 # [ -9.27036143e+06   1.40233826e+08   7.53462714e+07]
 # [  1.25097100e+07   7.53462714e+07   5.95678835e+07]]
 
-    def minimum_and_maximum(self, **kwargs):
+    def calculate_minimum_and_maximum(self, **kwargs):
         '''	
         This method calculates the min and max of of the object in (x,y,z)
 		
@@ -311,7 +279,7 @@ class Calculate(object):
         return [self._total_minimum,self._total_maximum]
 
 
-    def minimum_and_maximum_one_frame(self, frame, **kwargs):
+    def calculate_minimum_and_maximum_one_frame(self, frame, **kwargs):
 	
         '''	
         This method calculates the min and max of frame=frame of the object in (x,y,z)
@@ -343,7 +311,7 @@ class Calculate(object):
         return [self._minimum,self._maximum]
 
 
-    def minimum_and_maximum_all_frames(self, filename, **kwargs):
+    def calculate_minimum_and_maximum_all_frames(self, filename, **kwargs):
 
         '''	
         This method calculates the min and max of frame=frame of the object in (x,y,z)
@@ -381,7 +349,7 @@ class Calculate(object):
 
             if(file_type=='dcd'):	
                 self.read_dcd_step(dcdfilepointer_array,i)
-                this_minmax = self.calcminmax_frame(0)
+                this_minmax = self.calculate_minimum_and_maximum_one_frame(0)
             else:	
                 this_minmax = self.calcminmax_frame(i)
 
