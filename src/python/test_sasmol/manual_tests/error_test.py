@@ -1,6 +1,17 @@
 import sys
 
+import sasmol.logging_utilites as logging_utilities
+
+
+
 class log():
+
+    def __init__(self):
+        self._app = 'sasmol'
+        self._txtOutput = None
+
+        run_utils = logging_utilities.run_utils(self._app, self._txtOutput)
+        run_utils.setup_logging(self)
 
     def error(self, message):
         print '\n'+message+'\n'
