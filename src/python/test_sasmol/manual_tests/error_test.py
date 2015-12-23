@@ -4,22 +4,32 @@ import sasmol.logging_utilites as logging_utilities
 
 
 
-class log():
+class sasmol_log():
 
     def __init__(self):
         self._app = 'sasmol'
         self._txtOutput = None
 
-        run_utils = logging_utilities.run_utils(self._app, self._txtOutput)
-        run_utils.setup_logging(self)
+        self.run_utils = logging_utilities.run_utils(self._app, self._txtOutput)
+        self.run_utils.setup_logging(self)
 
-    def error(self, message):
-        print '\n'+message+'\n'
-        #self.log.flush() 
-        #self.log.close()
-#        raise
 
-log = log()
+''' #works
+import sasmol.sasmol as sasmol
+mol_1 = sasmol.SasMol()
+mol_1.run_utils = logging_utilities.run_utils('sasmol',None) #self._app, self._txtOutput)
+mol_1.run_utils.setup_logging(mol_1)
+log = mol_1.log
+''' #end works
+
+
+#''' # also works
+
+mol_1 = sasmol_log()
+log = mol_1.log
+
+#''' #end also works
+
 
 try:
 
@@ -31,8 +41,6 @@ try:
 except IOError as error:
 
     log.error("ERROR: I/O error({0}): {1}".format(error.errno, error.strerror) + " : " + filename)
-    #log.flush()
-    #log.close()
 
 except:
 
