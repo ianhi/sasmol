@@ -15,19 +15,24 @@ class log():
 
     def error(self, message):
         print '\n'+message+'\n'
-        raise 
+        #self.log.flush() 
+        #self.log.close()
+#        raise
 
 log = log()
 
 try:
 
     filename = 'data.txt'
+    filename = 'this_file_does_not_exist.txt'
 
     file = open(filename).readlines()
 
 except IOError as error:
 
     log.error("ERROR: I/O error({0}): {1}".format(error.errno, error.strerror) + " : " + filename)
+    #log.flush()
+    #log.close()
 
 except:
 

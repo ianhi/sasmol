@@ -103,6 +103,7 @@ class run_utils():
         if (sasconfig.__level__ == 'DEBUG'): 
             self.logger.setLevel(logging.DEBUG)
         else:
+            #self.logger.setLevel(logging.ERROR)
             self.logger.setLevel(logging.INFO)
 
         timestr = time.strftime("%Y%m%d-%H%M%S")
