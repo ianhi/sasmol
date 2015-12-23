@@ -483,15 +483,20 @@ class Files(object):
         if 'model' in kwargs:
             infile.write("ENDMDL\n")
         else:
+            if conect:
+                conect_lines = self.create_conect_pdb_lines()
+                for line in conect_lines:
+                    infile.write(line + '\n')
+               
             infile.write("END\n")
 
         if 'final' in kwargs:
+            if conect:
+                conect_lines = self.create_conect_pdb_lines()
+                for line in conect_lines:
+                    infile.write(line + '\n')
+               
             infile.write("END\n")
-
-        if conect:
-            conect_lines = self.create_conect_pdb_lines()
-            for line in conect_lines:
-                infile.write(line + '\n')
 
         infile.close()
     
