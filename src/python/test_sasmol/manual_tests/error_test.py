@@ -25,8 +25,8 @@ log = mol_1.log
 
 #''' # also works
 
-mol_1 = sasmol_log()
-log = mol_1.log
+my_log = sasmol_log()
+log = my_log.log
 
 #''' #end also works
 

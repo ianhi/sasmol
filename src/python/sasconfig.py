@@ -6,15 +6,15 @@ import os
 
 #arch = "cluster"
 arch = "mac"
-#arch = "linux"
 
 __cuda__ = True
 __cuda__ = False
 
-__openmm__ = False
-
 __level__ = 'DEBUG'
 __level__ = 'WARNING'
+
+__logging__ = True
+__logging__ = False
 
 ###     END SYSADMIN EDIT ###
 ###     END SYSADMIN EDIT ###

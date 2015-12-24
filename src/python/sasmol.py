@@ -65,7 +65,6 @@ class SasAtm(sasio.Files,calculate.Calculate,sasop.Move,sassubset.Mask,sasproper
     def __init__(self, id = None, debug = None):
 
         self._id = 0
-        self._debug = False
         
         self._total_mass = 0.0	
         self._natoms = 0
