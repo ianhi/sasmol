@@ -42,7 +42,6 @@ class Calculate(object):
     TODO:  Exception handling
     TODO:  Generic loop w/ multiprocessing
     TODO:  Cleaner doc-strings
-    TODO:  Main header information streamlined
     TODO:  All spacing and naming conventions
 
     '''
