@@ -3,17 +3,19 @@ import weakref
 
 sys.path.append('./')
 
-import sasmol as sasmol
+import sasmol.sasmol as sasmol
+import sasmol.sasconfig as sasconfig
 
-print 'in test: sasmol.__sasmol_id__ = ', sasmol.__sasmol_id__
-print 'in test: sasmol.__sasmol_debug__ = ',sasmol. __sasmol_debug__
-print 'in test: sasmol.__sasmol_logging__ = ', sasmol.__sasmol_logging__
+sasconfig.__sasmol_id__ += 1
+
+print 'in test: sasconfig.__sasmol_id__ = ', sasconfig.__sasmol_id__
+print 'in test: sasconfig.__logging__ = ', sasconfig.__logging__
 print 
 
 for i in xrange(10):
-    sasmol.__sasmol_id__ += 1
+    sasconfig.__sasmol_id__ += 1
 
-print 'in test: sasmol.__sasmol_id__ = ', sasmol.__sasmol_id__
+print 'in test: sasconfig.__sasmol_id__ = ', sasconfig.__sasmol_id__
 print 
 
 print
@@ -25,9 +27,8 @@ import two as two
 print
 print 'back in test' ; print
 
-print 'in test: sasmol.__sasmol_id__ = ', sasmol.__sasmol_id__
-print 'in test: sasmol.__sasmol_debug__ = ',sasmol. __sasmol_debug__
-print 'in test: sasmol.__sasmol_logging__ = ', sasmol.__sasmol_logging__
+print 'in test: sasconfig.__sasmol_id__ = ', sasconfig.__sasmol_id__
+print 'in test: sasconfig.__logging__ = ', sasconfig.__logging__
 
 print
 

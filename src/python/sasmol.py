@@ -75,7 +75,7 @@ class SasAtm(sasio.Files,calculate.Calculate,sasop.Move,sassubset.Mask,sasproper
         if id != None:
             self._id = id
 
-        if sasconfig.__level__ == 'DEBUG':
+        if sasconfig.__logging_level__ == 'DEBUG':
             self._debug = True 
 
         if debug != None:
