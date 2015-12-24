@@ -12,12 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import sys
-import numpy
-import sasop
-import sasmath
-
+#
 #	CALCULATE
 #
 #	12/10/2009	--	initial coding			        :	jc
@@ -32,17 +27,20 @@ import sasmath
 
 '''
 
+import sys
+import numpy
+import sasop
+import sasmath
 
 class Calculate(object):
 
     '''
-    This class calculates various properties of the object.
+    This class contains methods to calculate various properties of the supplied object.
 
     TODO:  Need to write a generic driver to loop over single or multiple frames
     TODO:  Exception handling
     TODO:  Generic loop w/ multiprocessing
     TODO:  Cleaner doc-strings
-    TODO:  All spacing and naming conventions
 
     '''
 
@@ -144,9 +142,9 @@ class Calculate(object):
         self._com = self.calculate_center_of_mass(frame)
 
         if(self._natoms > 0):
-            brg2 = ((self._coor[frame, :, :] - self._com)
+            rg2 = ((self._coor[frame, :, :] - self._com)
                     * (self._coor[frame, :, :] - self._com))
-            self._rg = numpy.sqrt(numpy.sum(numpy.sum(brg2)) / self._natoms)
+            self._rg = numpy.sqrt(numpy.sum(numpy.sum(rg2)) / self._natoms)
 
         return self._rg
 
@@ -264,14 +262,6 @@ class Calculate(object):
         sasop.Move.moveto(self, frame, com)
 
         return uk, ak, I
-
-# uk =  [  1.30834716e+07   1.91993314e+08   1.85015201e+08]
-# ak =  [[-0.08711655 -0.97104917  0.22242802]
-# [-0.512547    0.23514759  0.82583363]
-# [ 0.85422847  0.04206103  0.51819358]]
-# I =  [[  1.90290278e+08  -9.27036143e+06   1.25097100e+07]
-# [ -9.27036143e+06   1.40233826e+08   7.53462714e+07]
-# [  1.25097100e+07   7.53462714e+07   5.95678835e+07]]
 
     def calculate_minimum_and_maximum(self, **kwargs):
         '''	
