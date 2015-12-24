@@ -1,33 +1,24 @@
-'''
-    SASSIE: Copyright (C) 2011 Joseph E. Curtis, Ph.D. 
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
-import sys
-import sasio
-import calculate
-import sasop
-import sassubset
-import sasproperties
-import saspdbrx
-import sasview
-
+#    SASMOL: Copyright (C) 2011 Joseph E. Curtis, Ph.D. 
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 #	SASMOL
 #
 #	12/4/2009	--	initial coding			:	jc
 #	12/10/2009	--	doc strings 			:	jc
 #	01/11/2010	--	new design pattern		:	jc
+#	12/25/2015	--	refactored for release  :   jc
 #
 #	 1         2         3         4         5         6         7
 # LC4567890123456789012345678901234567890123456789012345678901234567890123456789
@@ -46,6 +37,16 @@ import sasview
 	as dictated by the calling code).
 
 '''
+
+import sys
+import sasio
+import calculate
+import sasop
+import sassubset
+import sasproperties
+import saspdbrx
+import sasview
+
 
 import sasconfig as sasconfig
 
