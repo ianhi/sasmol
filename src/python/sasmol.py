@@ -30,7 +30,7 @@ import sasview
 #	01/11/2010	--	new design pattern		:	jc
 #
 #	 1         2         3         4         5         6         7
-#LC4567890123456789012345678901234567890123456789012345678901234567890123456789
+# LC4567890123456789012345678901234567890123456789012345678901234567890123456789
 #								       *      **
 '''
 	Sasmol is the main module that contains the base classes that 
@@ -49,24 +49,26 @@ import sasview
 
 import sasconfig as sasconfig
 
+
 class Error(Exception):
     pass
 
-class SasAtm(sasio.Files,calculate.Calculate,sasop.Move,sassubset.Mask,sasproperties.Atomic,saspdbrx.Topology,sasview.View):
+
+class SasAtm(sasio.Files, calculate.Calculate, sasop.Move, sassubset.Mask, sasproperties.Atomic, saspdbrx.Topology, sasview.View):
 
     '''
-	SasAtm is the base class to build and deal with atomistic systems.
-	The various methods described herein are separated in regards to
-	their function.  The class inherits file input/output and 
-	manipulation abilities from the sasio, calculate, and sasop modules.
+        SasAtm is the base class to build and deal with atomistic systems.
+        The various methods described herein are separated in regards to
+        their function.  The class inherits file input/output and 
+        manipulation abilities from the sasio, calculate, and sasop modules.
 
     '''
 
-    def __init__(self, id = None, debug = None):
+    def __init__(self, id=None, debug=None):
 
         self._id = 0
-        
-        self._total_mass = 0.0	
+
+        self._total_mass = 0.0
         self._natoms = 0
         self._mass = None
         self._coor = None
@@ -76,40 +78,39 @@ class SasAtm(sasio.Files,calculate.Calculate,sasop.Move,sassubset.Mask,sasproper
             self._id = id
 
         if sasconfig.__logging_level__ == 'DEBUG':
-            self._debug = True 
+            self._debug = True
 
         if debug != None:
-            self._debug = debug 
+            self._debug = debug
 
-              
-    def setId(self,newValue):
+    def setId(self, newValue):
         self._id = newValue
 
     def id(self):
-        return self._id	
+        return self._id
 
     def maketop(self):
         pass
 
-    def setFilename(self,newValue):
+    def setFilename(self, newValue):
         self._filename = newValue
-	
+
     def filename(self):
         return self._filename
-	
-    def setType(self,newValue):
+
+    def setType(self, newValue):
         self._type = newValue
-	
+
     def type(self):
         return self._type
 
-    def setCharmm_type(self,newValue):
+    def setCharmm_type(self, newValue):
         self._charmm_type = newValue
-	
+
     def charmm_type(self):
         return self._charmm_type
 
-	# file stuff
+        # file stuff
 
     def load(self):
         pass
@@ -123,423 +124,424 @@ class SasAtm(sasio.Files,calculate.Calculate,sasop.Move,sassubset.Mask,sasproper
     def delframes(self):
         pass
 
-	# properties
+        # properties
 
     def number_of_frames(self):
-        return self._coor[:,0,0].shape[0]
-	
-    def setNumber_of_frames(self,newValue):
+        return self._coor[:, 0, 0].shape[0]
+
+    def setNumber_of_frames(self, newValue):
         self._number_of_frames = newValue
-	
+
     def atom(self):
         return self._atom
-	
-    def setAtom(self,newValue):
+
+    def setAtom(self, newValue):
         self._atom = newValue
-	
+
     def index(self):
         return self._index
-	
-    def setIndex(self,newValue):
+
+    def setIndex(self, newValue):
         self._index = newValue
 
     def header(self):
         return self._header
-	
-    def setHeader(self,newValue):
+
+    def setHeader(self, newValue):
         self._header = newValue
 
     def original_index(self):
         return self._original_index
-	
-    def setOriginal_index(self,newValue):
+
+    def setOriginal_index(self, newValue):
         self._original_index = newValue
 
     def original_resid(self):
         return self._original_resid
-	
-    def setOriginal_resid(self,newValue):
+
+    def setOriginal_resid(self, newValue):
         self._original_resid = newValue
 
     def conect(self):
         return self._conect
-	
-    def setConect(self,newValue):
+
+    def setConect(self, newValue):
         self._conect = newValue
-	
+
     def residue_flag(self):
         try:
             return self._residue_flag
         except:
             self._residue_flag = False
             return self._residue_flag
-	
-    def setResidue_flag(self,newValue):
+
+    def setResidue_flag(self, newValue):
         self._residue_flag = newValue
-	
+
     def name(self):
         return self._name
-	
-    def setName(self,newValue):
+
+    def setName(self, newValue):
         self._name = newValue
 
     def loc(self):
         return self._loc
-	
-    def setLoc(self,newValue):
+
+    def setLoc(self, newValue):
         self._loc = newValue
-	
+
     def resname(self):
         return self._resname
-	
-    def setResname(self,newValue):
+
+    def setResname(self, newValue):
         self._resname = newValue
-	
+
     def chain(self):
         return self._chain
-	
-    def setChain(self,newValue):
+
+    def setChain(self, newValue):
         self._chain = newValue
-	
+
     def resid(self):
         return self._resid
-	
-    def setResid(self,newValue):
+
+    def setResid(self, newValue):
         self._resid = newValue
 
     def coor(self):
         return self._coor
-	
-    def setCoor(self,newValue):
-        self._coor=newValue
+
+    def setCoor(self, newValue):
+        self._coor = newValue
 
     def rescode(self):
         return self._rescode
-	
-    def setRescode(self,newValue):
+
+    def setRescode(self, newValue):
         self._rescode = newValue
-	
+
     def occupancy(self):
         return self._occupancy
-	
-    def setOccupancy(self,newValue):
+
+    def setOccupancy(self, newValue):
         self._occupancy = newValue
-	
+
     def beta(self):
         return self._beta
-	
-    def setBeta(self,newValue):
+
+    def setBeta(self, newValue):
         self._beta = newValue
-	
+
     def segname(self):
         return self._segname
-	
-    def setSegname(self,newValue):
+
+    def setSegname(self, newValue):
         self._segname = newValue
-	
+
     def element(self):
         return self._element
-	
-    def setElement(self,newValue):
-        self._element = newValue
-	
-    def charge(self):
-        return self._charge	
 
-    def setCharge(self,newValue):
+    def setElement(self, newValue):
+        self._element = newValue
+
+    def charge(self):
+        return self._charge
+
+    def setCharge(self, newValue):
         self._charge = newValue
 
     def atom_charge(self):
-        return self._atom_charge	
+        return self._atom_charge
 
-    def setAtom_charge(self,newValue):
+    def setAtom_charge(self, newValue):
         self._atom_charge = newValue
 
     def atom_vdw(self):
-        return self._atom_vdw	
+        return self._atom_vdw
 
-    def setAtom_vdw(self,newValue):
+    def setAtom_vdw(self, newValue):
         self._atom_vdw = newValue
 
     def residue_charge(self):
-        return self._residue_charge	
+        return self._residue_charge
 
-    def setResidue_charge(self,newValue):
+    def setResidue_charge(self, newValue):
         self._residue_charge = newValue
 
     def energy(self):
         return self._energy
 
-    def setEnergy(self,newValue):
+    def setEnergy(self, newValue):
         self._energy = newValue
 
     def formula(self):
         return self._formula
 
-    def setFormula(self,newValue):
+    def setFormula(self, newValue):
         self._formula = newValue
 
     def mass(self):
-        return self._mass	
+        return self._mass
 
-    def setMass(self,newValue):
+    def setMass(self, newValue):
         self._mass = newValue
 
     def total_mass(self):
-        if(self._total_mass==None ):
-            self._total_mass=calculate.Calculate.calcmass(self)
-        return self._total_mass	
+        if(self._total_mass == None):
+            self._total_mass = calculate.Calculate.calcmass(self)
+        return self._total_mass
 
-    def setTotal_mass(self,newValue):
+    def setTotal_mass(self, newValue):
         self._total_mass = newValue
 
     def unitcell(self):
         return self._unitcell
 
-    def setUnitcell(self,newValue):
+    def setUnitcell(self, newValue):
         self._unitcell = newValue
 
     def com(self):
         return self._com
-	
-    def setCom(self,newValue):
+
+    def setCom(self, newValue):
         self._com = newValue
 
     def natoms(self):
         return self._natoms
 
-    def setNatoms(self,newValue):
+    def setNatoms(self, newValue):
         self._natoms = newValue
 
     def rg(self):
         return self._rg
 
-    def setRg(self,newValue):
+    def setRg(self, newValue):
         self._rg = newValue
 
     def pmi(self):
         return self._pmi
 
-    def setPmi(self,newValue):
+    def setPmi(self, newValue):
         self._pmi = newValue
 
     def minimum(self):
         return self._minimum
 
-    def setMinimum(self,newValue):
+    def setMinimum(self, newValue):
         self._minimum = newValue
-	
+
     def maximum(self):
         return self._maximum
 
-    def setMaximum(self,newValue):
+    def setMaximum(self, newValue):
         self._maximum = newValue
-	
+
     def shape(self):
         return self._shape
 
-    def setShape(self,newValue):
-        self._shape=newValue
-	
+    def setShape(self, newValue):
+        self._shape = newValue
+
     def moltype(self):
         return self._moltype
 
-    def setMoltype(self,newValue):
-        self._moltype=newValue
+    def setMoltype(self, newValue):
+        self._moltype = newValue
 
     def number_of_names(self):
         return self._number_of_names
-	
-    def setNumber_of_names(self,newValue):
+
+    def setNumber_of_names(self, newValue):
         self._number_of_names = newValue
 
     def number_of_resnames(self):
         return self._number_of_resnames
-	
-    def setNumber_of_resnames(self,newValue):
+
+    def setNumber_of_resnames(self, newValue):
         self._number_of_resnames = newValue
 
     def number_of_resids(self):
         return self._number_of_resids
 
-    def setNumber_of_resids(self,newValue):
+    def setNumber_of_resids(self, newValue):
         self._number_of_resids = newValue
 
     def number_of_chains(self):
         return self._number_of_chains
-	
-    def setNumber_of_chains(self,newValue):
+
+    def setNumber_of_chains(self, newValue):
         self._number_of_chains = newValue
 
     def number_of_segnames(self):
         return self._number_of_segnames
-	
-    def setNumber_of_segnames(self,newValue):
+
+    def setNumber_of_segnames(self, newValue):
         self._number_of_segnames = newValue
 
     def number_of_occupancies(self):
         return self._number_of_occupancies
-	
-    def setNumber_of_occupancies(self,newValue):
+
+    def setNumber_of_occupancies(self, newValue):
         self._number_of_occupancies = newValue
 
     def number_of_betas(self):
         return self._number_of_betas
-	
-    def setNumber_of_betas(self,newValue):
+
+    def setNumber_of_betas(self, newValue):
         self._number_of_betas = newValue
 
     def number_of_moltypes(self):
         return self._number_of_moltypes
-	
-    def setNumber_of_moltypes(self,newValue):
+
+    def setNumber_of_moltypes(self, newValue):
         self._number_of_moltypes = newValue
 
     def number_of_elements(self):
         return self._number_of_elements
-	
-    def setNumber_of_elements(self,newValue):
+
+    def setNumber_of_elements(self, newValue):
         self._number_of_elements = newValue
 
     def names(self):
         return self._names
-	
-    def setNames(self,newValue):
+
+    def setNames(self, newValue):
         self._names = newValue
 
     def resnames(self):
         return self._resnames
-	
-    def setResnames(self,newValue):
+
+    def setResnames(self, newValue):
         self._resnames = newValue
 
     def resids(self):
         return self._resids
-	
-    def setResids(self,newValue):
+
+    def setResids(self, newValue):
         self._resids = newValue
 
     def chains(self):
         return self._chains
-	
-    def setChains(self,newValue):
+
+    def setChains(self, newValue):
         self._chains = newValue
 
     def segnames(self):
         return self._segnames
-	
-    def setSegnames(self,newValue):
+
+    def setSegnames(self, newValue):
         self._segnames = newValue
 
     def occupancies(self):
         return self._occupancies
-	
-    def setOccupancies(self,newValue):
+
+    def setOccupancies(self, newValue):
         self._occupancies = newValue
 
     def betas(self):
         return self._betas
-	
-    def setBetas(self,newValue):
+
+    def setBetas(self, newValue):
         self._betas = newValue
 
     def moltypes(self):
         return self._moltypes
-	
-    def setMoltypes(self,newValue):
+
+    def setMoltypes(self, newValue):
         self._moltypes = newValue
 
     def elements(self):
         return self._elements
-	
-    def setElements(self,newValue):
+
+    def setElements(self, newValue):
         self._elements = newValue
 
     def names_mask(self):
         return self._names_mask
-	
-    def setNames_mask(self,newValue):
+
+    def setNames_mask(self, newValue):
         self._names_mask = newValue
 
     def resnames_mask(self):
         return self._resnames_mask
-	
-    def setResnames_mask(self,newValue):
+
+    def setResnames_mask(self, newValue):
         self._resnames_mask = newValue
 
     def resids_mask(self):
         return self._resids_mask
-	
-    def setResids_mask(self,newValue):
+
+    def setResids_mask(self, newValue):
         self._resids_mask = newValue
 
     def chains_mask(self):
         return self._chains_mask
-	
-    def setChains_mask(self,newValue):
+
+    def setChains_mask(self, newValue):
         self._chains_mask = newValue
 
     def occupancies_mask(self):
         return self._occupancies_mask
-	
-    def setOccupancies_mask(self,newValue):
+
+    def setOccupancies_mask(self, newValue):
         self._occupancies_mask = newValue
 
     def betas_mask(self):
         return self._betas_mask
-    
-    def setBetas_mask(self,newValue):
+
+    def setBetas_mask(self, newValue):
         self._betas_mask = newValue
 
     def elements_mask(self):
         return self._elements_mask
-	
-    def setElements_mask(self,newValue):
+
+    def setElements_mask(self, newValue):
         self._elements_mask = newValue
 
     def segnames_mask(self):
         return self._segnames_mask
-	
-    def setSegnames_mask(self,newValue):
+
+    def setSegnames_mask(self, newValue):
         self._segnames_mask = newValue
 
     def effective_charge(self):
         return self._effective_charge
-	
-    def setEffective_charge(self,newValue):
+
+    def setEffective_charge(self, newValue):
         self._effective_charge = newValue
 
     def long_range_potential(self):
         return self._long_range_potential
-	
-    def setLong_range_potential(self,newValue):
+
+    def setLong_range_potential(self, newValue):
         self._long_range_potential = newValue
 
     def short_range_potential(self):
         return self._short_range_potential
-	
-    def setShort_range_potential(self,newValue):
+
+    def setShort_range_potential(self, newValue):
         self._short_range_potential = newValue
 
     def effective_van_der_waals(self):
         return self._effective_van_der_waals
-	
-    def setEffective_van_der_waals(self,newValue):
+
+    def setEffective_van_der_waals(self, newValue):
         self._effective_van_der_waals = newValue
 
     def fasta(self):
         return self._fasta
-	
-    def setFasta(self,newValue):
+
+    def setFasta(self, newValue):
         self._fasta = newValue
 
     def one_letter_resname(self):
         return self._one_letter_resname
-	
-    def setOne_letter_resname(self,newValue):
+
+    def setOne_letter_resname(self, newValue):
         self._one_letter_resname = newValue
 
-	### OPEN	Add an iterator to count over the atoms ????
+        # OPEN	Add an iterator to count over the atoms ????
+
 
 class SasMol(SasAtm):
 
@@ -550,9 +552,9 @@ class SasMol(SasAtm):
 
     '''
 
-###	OPEN	If you load a molecule it doesn't check to see if it IS an molecule
+# OPEN	If you load a molecule it doesn't check to see if it IS an molecule
 
-    def __init__(self, id = None, debug = None):
+    def __init__(self, id=None, debug=None):
         SasAtm.__init__(self, id, debug)
         self._name = 'Mol_None'
 
@@ -561,6 +563,7 @@ class SasMol(SasAtm):
 
     def corr(self):
         pass
+
 
 class SasAss(SasMol):
 
@@ -571,13 +574,15 @@ class SasAss(SasMol):
     a lipid membrane bilayer.  An assembly can be built by the
     user or it can be read in a single file.
     '''
-###  	DONE    Ans: Yes. If SasAss can be loaded directly (i.e. with SasMol) does it inherit from SasAtm?
+# DONE    Ans: Yes. If SasAss can be loaded directly (i.e. with SasMol)
+# does it inherit from SasAtm?
 
-###	OPEN	If you load an assembly it doesn't check to see if it IS an assembly
+# OPEN	If you load an assembly it doesn't check to see if it IS an assembly
 
-    def __init__(self,id):
-        SasMol.__init__(self,id)
-        self._name='Ass_None'
+    def __init__(self, id):
+        SasMol.__init__(self, id)
+        self._name = 'Ass_None'
+
 
 class SasSol(object):
 
@@ -588,8 +593,9 @@ class SasSol(object):
     shape.
     '''
 
-    def __init__(self,id):
-        self._name='Sol_None'
+    def __init__(self, id):
+        self._name = 'Sol_None'
+
 
 class SasHybrid(SasMol):
 
@@ -598,9 +604,10 @@ class SasHybrid(SasMol):
     system that is not easily desribed by an atomic representation
     alone.
     '''
-    
-    def __init__(self,id):
-        self._name='Hybrid_None'
+
+    def __init__(self, id):
+        self._name = 'Hybrid_None'
+
 
 class SasSys():
 
@@ -619,63 +626,63 @@ class SasSys():
 
     '''
 
-    def __init__(self,id,systype='atomic'):
-        self._id=id
-        if(systype=='atomic' or systype==None):
-            self._systype='atomic'
-        elif(systype=='solid'):
-            self._systype='solid'
+    def __init__(self, id, systype='atomic'):
+        self._id = id
+        if(systype == 'atomic' or systype == None):
+            self._systype = 'atomic'
+        elif(systype == 'solid'):
+            self._systype = 'solid'
         else:
             pass
-###	OPEN	Exception for systype error
+# OPEN	Exception for systype error
 
-        self._objectarray=[]
+        self._objectarray = []
 
     def id(self):
-        return self._id	
+        return self._id
 
     def systype(self):
         return self._systype
 
-    def add_object(self,addtype='atomic'):
-        if(addtype=='atomic'):
-            thisid=len(self._objectarray)
-            object=SasAtm(thisid)
-            self._objectarray.append([thisid,object])
+    def add_object(self, addtype='atomic'):
+        if(addtype == 'atomic'):
+            thisid = len(self._objectarray)
+            object = SasAtm(thisid)
+            self._objectarray.append([thisid, object])
             return object
-        elif(addtype=='solid'):
-            thisid=len(self._objectarray)
-            object=SasSol(thisid)
-            self._objectarray.append([thisid,object])
+        elif(addtype == 'solid'):
+            thisid = len(self._objectarray)
+            object = SasSol(thisid)
+            self._objectarray.append([thisid, object])
             return object
-        elif(addtype=='hybrid'):
-            thisid=len(self._objectarray)
-            object=SasHybrid(thisid)
-            self._objectarray.append([thisid,object])
+        elif(addtype == 'hybrid'):
+            thisid = len(self._objectarray)
+            object = SasHybrid(thisid)
+            self._objectarray.append([thisid, object])
             return object
 #
-###	OPEN	Add solid objects here.
+# OPEN	Add solid objects here.
 #
         else:
             print '>>> error: need to specify addtype == atom, molecule, or assembly'
             print '>>> no objects created'
 #
-###	OPEN	Error check for add_object "atomic" input parameters
+# OPEN	Error check for add_object "atomic" input parameters
 #
-###	RUSH	Need to figure out how to manipulate by IDs, object names, and maybe iterators
+# RUSH	Need to figure out how to manipulate by IDs, object names, and maybe iterators
 #
-###	RUSH	Can NOT remove objects using a.remove_object yet... "del object name" works
+# RUSH	Can NOT remove objects using a.remove_object yet... "del object name" works
 #
-    def remove_object(self,object=None,id=None):
-        print 'objectarray = ',self._objectarray
+
+    def remove_object(self, object=None, id=None):
+        print 'objectarray = ', self._objectarray
         del object
         for i in range(len(self._objectarray)):
-            thisid=self._objectarray[i][0]	
-            if thisid==id:
-                self._objectarray[i][1]=None
+            thisid = self._objectarray[i][0]
+            if thisid == id:
+                self._objectarray[i][1] = None
                 break
-            #else:
+            # else:
             #	print 'Incorrect object id and/or object specified'
 
-        print 'objectarray = ',self._objectarray
-
+        print 'objectarray = ', self._objectarray

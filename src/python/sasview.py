@@ -27,8 +27,8 @@ import sasview_vmd
 #
 #	11/27/2013	--	initial coding			:	jc
 #
-#LC	 1         2         3         4         5         6         7
-#LC4567890123456789012345678901234567890123456789012345678901234567890123456789
+# LC	 1         2         3         4         5         6         7
+# LC4567890123456789012345678901234567890123456789012345678901234567890123456789
 #								       *      **
 '''
 	Sasview is the main module that contains the base classes that 
@@ -49,34 +49,33 @@ import sasview_vmd
 
 '''
 
+
 class View(object):
 
-	def __init__(self,filename,flag):
-		pass
+    def __init__(self, filename, flag):
+        pass
 
-	def check_error(self,error):
+    def check_error(self, error):
 
-		if(len(error)>0):
-			print error
-			sys.exit()
+        if(len(error) > 0):
+            print error
+            sys.exit()
 
-		return
+        return
 
+    def send_coordinates_to_vmd(self, port, flag):
+        '''
+        This method opens a socket to send and receive coordinates
+        by calling a pre-compiled C module (sasview_vmd).
+        '''
+        natoms = self._coor[0, :, 0].shape[0]
+        frame = 0
+        tx = self._coor[frame, :, 0].astype(numpy.float32)
+        ty = self._coor[frame, :, 1].astype(numpy.float32)
+        tz = self._coor[frame, :, 2].astype(numpy.float32)
 
-	def send_coordinates_to_vmd(self,port,flag):
-		'''
-		This method opens a socket to send and receive coordinates
-		by calling a pre-compiled C module (sasview_vmd).
-		'''
-		natoms = self._coor[0,:,0].shape[0]
-		frame = 0		
-		tx=self._coor[frame,:,0].astype(numpy.float32)	
-		ty=self._coor[frame,:,1].astype(numpy.float32)	
-		tz=self._coor[frame,:,2].astype(numpy.float32)	
+        result = sasview_vmd.send_coordinates_to_vmd(tx, ty, tz, port, flag)
 
-		result = sasview_vmd.send_coordinates_to_vmd(tx,ty,tz,port,flag)
+        print 'result = ', result
 
-		print 'result = ',result
-
-		return 
-
+        return

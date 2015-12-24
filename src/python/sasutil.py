@@ -18,9 +18,9 @@
 #	SASUTIL
 #
 #	12/10/2009	--	initial coding				:	jc
-#	11/24/2011	-- 	moved to seperate file			:	jc	
+#	11/24/2011	-- 	moved to seperate file			:	jc
 #	 1         2         3         4         5         6         7
-#LC4567890123456789012345678901234567890123456789012345678901234567890123456789
+# LC4567890123456789012345678901234567890123456789012345678901234567890123456789
 #								       *      **
 '''
 	SasUtil holds general methods for file naming, os differences,
@@ -28,7 +28,7 @@
 '''
 #import sasmol.sasproperties as sasproperties
 import string
-   
+
 
 NAME, NUM, LPAREN, RPAREN, EOS = range(5)
 import re
@@ -36,17 +36,16 @@ _lexer = re.compile(r"[A-Z][a-z]*|\d+|[()]|<EOS>").match
 del re
 
 
+def get_full_filename(path, filename, **kwargs):
 
-def get_full_filename(path,filename,**kwargs):
-	
-	web_flag = False
+    web_flag = False
 
-	if 'web_path' in kwargs:				# dict kwarg['web_path'] = web_path
-		web_flag = True
-		web_path = kwargs['web_path']
-		print 'web_path = ',web_path		
+    if 'web_path' in kwargs:				# dict kwarg['web_path'] = web_path
+        web_flag = True
+        web_path = kwargs['web_path']
+        print 'web_path = ', web_path
 
-	return
+    return
 
 # symbol, name, atomic number, molecular weight
 _data = r"""'Ac', 'Actinium', 89, 227
@@ -160,17 +159,19 @@ _data = r"""'Ac', 'Actinium', 89, 227
 
 
 class Element:
-        def __init__(self, symbol,name,atomicnumber,molweight):
-            self.sym = symbol
-            self.name = name
-            self.ano = atomicnumber
-            self.mw = molweight
 
-        def getweight(self):
-            return self.mw
+    def __init__(self, symbol, name, atomicnumber, molweight):
+        self.sym = symbol
+        self.name = name
+        self.ano = atomicnumber
+        self.mw = molweight
 
-        def addsyms(self, weight, result):
-            result[self.sym] = result.get(self.sym, 0) + weight
+    def getweight(self):
+        return self.mw
+
+    def addsyms(self, weight, result):
+        result[self.sym] = result.get(self.sym, 0) + weight
+
 
 def build_dict(s):
     import string
@@ -180,112 +181,117 @@ def build_dict(s):
         answer[symbol] = Element(symbol, name, num, weight)
     return answer
 
+
 class ElementSequence:
-        def __init__(self, *seq):
-            self.seq = list(seq)
-            self.count = 1
 
-        def append(self, thing):
-            self.seq.append(thing)
+    def __init__(self, *seq):
+        self.seq = list(seq)
+        self.count = 1
 
-        def getweight(self):
-            sum = 0.0
-            for thing in self.seq:
-                sum = sum + thing.getweight()
-            return sum * self.count
+    def append(self, thing):
+        self.seq.append(thing)
 
-        def set_count(self, n):
-            self.count = n
+    def getweight(self):
+        sum = 0.0
+        for thing in self.seq:
+            sum = sum + thing.getweight()
+        return sum * self.count
 
-        def __len__(self):
-            return len(self.seq)
+    def set_count(self, n):
+        self.count = n
 
-        def addsyms(self, weight, result):
-            totalweight = weight * self.count
-            for thing in self.seq:
-                thing.addsyms(totalweight, result)
+    def __len__(self):
+        return len(self.seq)
 
-        def displaysyms(self,sym2elt):
-            result = {}
-            self.addsyms(1, result)
-            items = result.items()
-            items.sort()
-            for sym, count in items:
-                print sym, " : ",count
+    def addsyms(self, weight, result):
+        totalweight = weight * self.count
+        for thing in self.seq:
+            thing.addsyms(totalweight, result)
+
+    def displaysyms(self, sym2elt):
+        result = {}
+        self.addsyms(1, result)
+        items = result.items()
+        items.sort()
+        for sym, count in items:
+            print sym, " : ", count
 
 
 class Tokenizer:
-        def __init__(self, input):
-            self.input = input + "<EOS>"
-            self.i = 0
 
-        def gettoken(self):
-            global ttype, tvalue
-            self.lasti = self.i
-            m = _lexer(self.input, self.i)
-            if m is None:
-                self.error("unexpected character")
-            self.i = m.end()
-            tvalue = m.group()
-            if tvalue == "(":
-                ttype = LPAREN
-            elif tvalue == ")":
-                ttype = RPAREN
-            elif tvalue == "<EOS>":
-                ttype = EOS
-            elif "0" <= tvalue[0] <= "9":
-                ttype = NUM
-                tvalue = int(tvalue)
-            else:
-                ttype = NAME
+    def __init__(self, input):
+        self.input = input + "<EOS>"
+        self.i = 0
 
-        def error(self, msg):
-            emsg = msg + ":\n"
-            emsg = emsg + self.input[:-5] + "\n"  # strip <EOS>
-            emsg = emsg + " " * self.lasti + "^\n"
-            raise ValueError(emsg)
+    def gettoken(self):
+        global ttype, tvalue
+        self.lasti = self.i
+        m = _lexer(self.input, self.i)
+        if m is None:
+            self.error("unexpected character")
+        self.i = m.end()
+        tvalue = m.group()
+        if tvalue == "(":
+            ttype = LPAREN
+        elif tvalue == ")":
+            ttype = RPAREN
+        elif tvalue == "<EOS>":
+            ttype = EOS
+        elif "0" <= tvalue[0] <= "9":
+            ttype = NUM
+            tvalue = int(tvalue)
+        else:
+            ttype = NAME
 
-def parse(s,sym2elt):
-        global t, ttype, tvalue
-        t = Tokenizer(s)
-        t.gettoken()
-        seq = parse_sequence(sym2elt)
-        if ttype != EOS:
-            t.error("expected end of input")
-        return seq
+    def error(self, msg):
+        emsg = msg + ":\n"
+        emsg = emsg + self.input[:-5] + "\n"  # strip <EOS>
+        emsg = emsg + " " * self.lasti + "^\n"
+        raise ValueError(emsg)
+
+
+def parse(s, sym2elt):
+    global t, ttype, tvalue
+    t = Tokenizer(s)
+    t.gettoken()
+    seq = parse_sequence(sym2elt)
+    if ttype != EOS:
+        t.error("expected end of input")
+    return seq
+
 
 def parse_sequence(sym2elt):
-        global t, ttype, tvalue
-        seq = ElementSequence()
-        while ttype in (LPAREN, NAME):
+    global t, ttype, tvalue
+    seq = ElementSequence()
+    while ttype in (LPAREN, NAME):
         # parenthesized expression or straight name
-            if ttype == LPAREN:
-                t.gettoken()
-                thisguy = parse_sequence(sym2elt)
-                if ttype != RPAREN:
-                    t.error("expected right paren")
-                t.gettoken()
+        if ttype == LPAREN:
+            t.gettoken()
+            thisguy = parse_sequence(sym2elt)
+            if ttype != RPAREN:
+                t.error("expected right paren")
+            t.gettoken()
+        else:
+            assert ttype == NAME
+            if sym2elt.has_key(tvalue):
+                thisguy = ElementSequence(sym2elt[tvalue])
             else:
-                assert ttype == NAME
-                if sym2elt.has_key(tvalue):
-                    thisguy = ElementSequence(sym2elt[tvalue])
-                else:
-                    t.error("'" + tvalue + "' is not an element symbol")
-                t.gettoken()
-        # followed by optional count
-            if ttype == NUM:
-                thisguy.set_count(tvalue)
-                t.gettoken()
-            seq.append(thisguy)
-        if len(seq) == 0:
-            t.error("empty sequence")
-        return seq
+                t.error("'" + tvalue + "' is not an element symbol")
+            t.gettoken()
+    # followed by optional count
+        if ttype == NUM:
+            thisguy.set_count(tvalue)
+            t.gettoken()
+        seq.append(thisguy)
+    if len(seq) == 0:
+        t.error("empty sequence")
+    return seq
 
-#def get_chemical_formula(formula_string):
+# def get_chemical_formula(formula_string):
 #
 #    Atomic = sasproperties.Atomic()
-#    #standard_atomic_weights = Atomic.amu(keep_lower_case=True) 
-#    amu = Atomic.amu(keep_lower_case=True) 
+#    #standard_atomic_weights = Atomic.amu(keep_lower_case=True)
+#    amu = Atomic.amu(keep_lower_case=True)
 #    sym2elt = build_dict(_data)
 #
 #    #sym2elt = amu
@@ -319,7 +325,7 @@ if __name__ == "__main__":
 
     filename = 'run_0'
 
-    get_full_filename(path,filename,web_path="/Users/curtisj")
+    get_full_filename(path, filename, web_path="/Users/curtisj")
 
     '''
     while 1:
@@ -344,8 +350,3 @@ if __name__ == "__main__":
         else:
             print "unknown action:", action
     '''
-
-
-
-
-
