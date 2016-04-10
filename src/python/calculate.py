@@ -79,7 +79,8 @@ class Calculate(object):
                 self._mass[count] = standard_atomic_weight[element]
                 count += 1
             else:
-                pass
+                message = 'element ' + element + ' not found'
+#                log.error('ERROR: ' + message)
 
 #               need to return an error that element was not found
 
