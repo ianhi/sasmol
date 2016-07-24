@@ -50,7 +50,7 @@ class Move():
 	'''	
 
 	def masscheck(self,frame):
-		if(self._totalmass <=0.0):
+		if(self._total_mass <=0.0):
 			self.calcmass()
 		return
 	
@@ -67,7 +67,7 @@ class Move():
 		self._coor[frame,:,2]=self._coor[frame,:,2]+value[2]
 
 		self.masscheck(frame)
-		self.calccom(frame)
+		self.calculate_center_of_mass(frame)
 
 		return
 
@@ -81,13 +81,13 @@ class Move():
 		'''
 	
 		self.masscheck(frame)
-		self.calccom(frame)
+		self.calculate_center_of_mass(frame)
 			
 		self._coor[frame,:,0]=self._coor[frame,:,0]-self._com[0]
 		self._coor[frame,:,1]=self._coor[frame,:,1]-self._com[1]
 		self._coor[frame,:,2]=self._coor[frame,:,2]-self._com[2]
 		
-		self.calccom(frame)
+		self.calculate_center_of_mass(frame)
 	
 		return
 
@@ -100,13 +100,13 @@ class Move():
 		'''
 		
 		self.masscheck(frame)
-		self.calccom(frame)
+		self.calculate_center_of_mass(frame)
 	
 		self._coor[frame,:,0]=self._coor[frame,:,0]-self._com[0]+value[0]
 		self._coor[frame,:,1]=self._coor[frame,:,1]-self._com[1]+value[1]
 		self._coor[frame,:,2]=self._coor[frame,:,2]-self._com[2]+value[2]
 		
-		self.calccom(frame)
+		self.calculate_center_of_mass(frame)
 	
 		return
 
@@ -121,7 +121,7 @@ class Move():
 
 		'''
 		self.masscheck(frame)
-		self.calccom(frame)
+		self.calculate_center_of_mass(frame)
 	
 		u = sasmath.find_u(coor_sub_1, coor_sub_2)
 

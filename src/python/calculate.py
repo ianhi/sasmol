@@ -1,3 +1,7 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+#from __future__ import unicode_literals
 #    SASMOL: Copyright (C) 2011 Joseph E. Curtis, Ph.D.
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -17,6 +21,7 @@
 #
 #	12/10/2009	--	initial coding			        :	jc
 #	12/20/2015	--	refactored for release          :	jc
+#	07/23/2016	--	refactored for Python 3         :	jc
 #
 #	 1         2         3         4         5         6         7
 # LC4567890123456789012345678901234567890123456789012345678901234567890123456789
@@ -29,8 +34,8 @@
 
 import sys
 import numpy
-import sasop
-import sasmath
+import sasmol.sasop as sasop
+import sasmol.sasmath as sasmath
 
 class Calculate(object):
 
@@ -182,10 +187,10 @@ class Calculate(object):
             self._rmsd = numpy.sqrt((numpy.sum(dxyz)) / self._natoms)
         except:
             if(self._natoms != other._natoms):
-                print 'number of atoms in (1) != (2)'
-                print 'rmsd not calculated: None returned'
-                print 'number of atoms in self is < 1'
-                print 'number of atoms in other is < 1'
+                print('number of atoms in (1) != (2)')
+                print('rmsd not calculated: None returned')
+                print('number of atoms in self is < 1')
+                print('number of atoms in other is < 1')
                 self._rmsd = None
 
         return self._rmsd
@@ -418,7 +423,7 @@ class Calculate(object):
 
         residue_charge = single_molecule.residue_charge()
 
-        print 'res-charge = ',residue_charge[0]
+        print('res-charge = ',residue_charge[0])
 
         @type   self                :   sasmol object 
 

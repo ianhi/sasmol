@@ -934,8 +934,7 @@ class Files(object):
 
         self._natoms=len(index)
 
-        total_mass = self.calcmass()
-
+        total_mass = self.calculate_mass()
         error = []
 
         if 'saspdbrx_topology' in kwargs:

@@ -1,3 +1,7 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+#from __future__ import unicode_literals
 #    SASMOL: Copyright (C) 2011 Joseph E. Curtis, Ph.D. 
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,6 +23,7 @@
 #	12/10/2009	--	doc strings 			:	jc
 #	01/11/2010	--	new design pattern		:	jc
 #	12/25/2015	--	refactored for release  :   jc
+#	07/23/2016	--	refactored for Python 3 :   jc
 #
 #	 1         2         3         4         5         6         7
 # LC4567890123456789012345678901234567890123456789012345678901234567890123456789
@@ -39,17 +44,15 @@
 '''
 
 import sys
-import sasio
-import calculate
-import sasop
-import sassubset
-import sasproperties
-import saspdbrx
-import sasview
+import sasmol.sasio as sasio
+import sasmol.calculate as calculate
+import sasmol.sasop as sasop
+import sasmol.sassubset as sassubset
+import sasmol.sasproperties as sasproperties
+import sasmol.saspdbrx as saspdbrx
+import sasmol.sasview as sasview
 
-
-import sasconfig as sasconfig
-
+import sasmol.sasconfig as sasconfig
 
 class Error(Exception):
     pass
@@ -74,6 +77,7 @@ class SasAtm(sasio.Files, calculate.Calculate, sasop.Move, sassubset.Mask, saspr
         self._mass = None
         self._coor = None
         self._com = None
+        self._conect = []
 
         if id != None:
             self._id = id
@@ -665,8 +669,8 @@ class SasSys():
 # OPEN	Add solid objects here.
 #
         else:
-            print '>>> error: need to specify addtype == atom, molecule, or assembly'
-            print '>>> no objects created'
+            print('>>> error: need to specify addtype == atom, molecule, or assembly')
+            print('>>> no objects created')
 #
 # OPEN	Error check for add_object "atomic" input parameters
 #
@@ -676,7 +680,7 @@ class SasSys():
 #
 
     def remove_object(self, object=None, id=None):
-        print 'objectarray = ', self._objectarray
+        print('objectarray = ', self._objectarray)
         del object
         for i in range(len(self._objectarray)):
             thisid = self._objectarray[i][0]
@@ -684,6 +688,6 @@ class SasSys():
                 self._objectarray[i][1] = None
                 break
             # else:
-            #	print 'Incorrect object id and/or object specified'
+            #	print('Incorrect object id and/or object specified')
 
-        print 'objectarray = ', self._objectarray
+        print('objectarray = ', self._objectarray)
