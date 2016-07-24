@@ -27,7 +27,7 @@ import os
 
 DataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
 
-class Test_sascalc_Move_masscheck(MockerTestCase): 
+class Test_operate_Move_masscheck(MockerTestCase): 
 
     def setUp(self):
         self.o=sasmol.SasMol(0)

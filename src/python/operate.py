@@ -1,3 +1,7 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+#from __future__ import unicode_literals
 '''
     SASSIE: Copyright (C) 2011 Joseph E. Curtis, Ph.D. 
 
@@ -16,17 +20,19 @@
 '''
 import sys
 import numpy
-import sasmath
+import sasmol.sasmath as sasmath
 
-#	SASOP
+#	OPERATE
 #
-#	12/13/2009	--	initial coding			:	jc
+#	12/13/2009	--	initial coding			        :	jc
+#   07/23/2016  --  refactored for release          :   jc
+#   07/23/2016  --  refactored for Python 3         :   jc
 #
 #	 1         2         3         4         5         6         7
 #LC4567890123456789012345678901234567890123456789012345678901234567890123456789
 #								       *      **
 '''
-	Sasop contains the classes and methods to perform the basic
+	Operate contains the classes and methods to perform the basic
 	translation, rotation, and alignment operations on instances of objects 
 	described in the sasmol module.
 
@@ -49,12 +55,12 @@ class Move():
 
 	'''	
 
-	def masscheck(self,frame):
+	def masscheck(self,frame, **kwargs):
 		if(self._total_mass <=0.0):
 			self.calcmass()
 		return
 	
-	def translate(self,frame,value):
+	def translate(self,frame,value, **kwargs):
 
 		'''
 		Simple movement.  It accepts an array of three
@@ -71,7 +77,7 @@ class Move():
 
 		return
 
-	def center(self,frame):
+	def center(self,frame, **kwargs):
 
 		'''
 		Simple movement.  It moves the center of mass
@@ -91,7 +97,7 @@ class Move():
 	
 		return
 
-	def moveto(self,frame,value):
+	def moveto(self,frame,value, **kwargs):
 		'''
 		Simple movement.  It moves the center of mass
 		to the destination value=[x,y,z].  The method 
@@ -110,7 +116,7 @@ class Move():
 	
 		return
 
-	def align(self,frame,coor_sub_2,com_sub_2,coor_sub_1,com_sub_1):
+	def align(self,frame,coor_sub_2,com_sub_2,coor_sub_1,com_sub_1, **kwargs):
 
 		'''
 		Alignment of one object on top of another
@@ -135,7 +141,7 @@ class Move():
  
 		return
  
-	def rotate(self,frame,axis,theta):
+	def rotate(self,frame,axis,theta, **kwargs):
 			
 		'''
 		Simple rotation about the x, y, or z axis.
@@ -159,7 +165,7 @@ class Move():
 	
 		return
 
-	def general_axis_rotate(self,frame,theta,ux,uy,uz):
+	def general_axis_rotate(self,frame,theta,ux,uy,uz, **kwargs):
 		'''
         The general rotation of a molecule along an arbitrarily
 		given unit axis (ux,uy,uz) by an angle theta.
@@ -185,7 +191,7 @@ class Move():
 
 		return
 
-	def euler_rotate(self,frame,phi,theta,psi):
+	def euler_rotate(self,frame,phi,theta,psi, **kwargs):
 		'''
         Rotate the molecule by a euler angle set (phi,theta,psi)
 

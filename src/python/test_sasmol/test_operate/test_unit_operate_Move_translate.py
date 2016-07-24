@@ -20,7 +20,7 @@ from sasmol.test_sasmol.util import env,util
 from unittest import main 
 from mocker import Mocker, MockerTestCase, ANY, ARGS, KWARGS
 import sasmol.sasmol as sasmol
-import sasmol.sasop as sasop
+import sasmol.operate as operate
 import sasmol.calculate as calculate
 
 import numpy
@@ -30,10 +30,10 @@ import warnings; warnings.filterwarnings('ignore')
 import os
 floattype=os.environ['SASSIE_FLOATTYPE']
 
-class Test_unit_sasop_Move_translate(MockerTestCase): 
+class Test_unit_operate_Move_translate(MockerTestCase): 
 
     def setUp(self):
-        self.back_masscheck = sasop.Move.masscheck
+        self.back_masscheck = operate.Move.masscheck
         self.back_calccom = calculate.Calculate.calculate_center_of_mass 
 
         self.m = Mocker()
@@ -43,8 +43,8 @@ class Test_unit_sasop_Move_translate(MockerTestCase):
         self.m.result(None)
         self.m.count(0,None)
 
-        sasop.Move.masscheck = self.m.mock()
-        sasop.Move.masscheck(ARGS)
+        operate.Move.masscheck = self.m.mock()
+        operate.Move.masscheck(ARGS)
         self.m.result(None)
         self.m.count(0,None)
 
@@ -138,8 +138,7 @@ class Test_unit_sasop_Move_translate(MockerTestCase):
     def tearDown(self):
         self.m.verify()
         calculate.Calculate.calculate_center_of_mass=self.back_calccom
-        sasop.Move.masscheck  =self.back_masscheck
-
+        operate.Move.masscheck  =self.back_masscheck
 
 
 if __name__ == '__main__': 

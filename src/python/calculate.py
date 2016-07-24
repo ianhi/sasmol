@@ -34,7 +34,7 @@ from __future__ import print_function
 
 import sys
 import numpy
-import sasmol.sasop as sasop
+import sasmol.operate as operate
 import sasmol.sasmath as sasmath
 
 class Calculate(object):
@@ -198,7 +198,7 @@ class Calculate(object):
     def calculate_principle_moments_of_inertia(self, frame, **kwargs):
         '''	
         This method calculates the principal moments of inertia
-        of the object. It uses the center method from sasop.Move
+        of the object. It uses the center method from operate.Move
         to center the molecule. 
         The present method is designated for the non-linear system with
         non-singular moment of inertia matrix only. For the linear systems, it
@@ -224,7 +224,7 @@ class Calculate(object):
 
         com = self.calculate_center_of_mass(frame)
 
-        sasop.Move.center(self, frame)
+        operate.Move.center(self, frame)
 
         Ixx = 0.0
         Iyy = 0.0
@@ -265,7 +265,7 @@ class Calculate(object):
         else:
             uk, ak = numpy.linalg.eig(I)
 
-        sasop.Move.moveto(self, frame, com)
+        operate.Move.moveto(self, frame, com)
 
         return uk, ak, I
 

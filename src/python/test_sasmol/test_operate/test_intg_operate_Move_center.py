@@ -20,7 +20,7 @@ from sasmol.test_sasmol.util import env,util
 from unittest import main, skipIf
 from mocker import Mocker, MockerTestCase, ANY, ARGS
 import sasmol.sasmol as sasmol
-import sasmol.sasop as sasop
+import sasmol.operate as operate
 
 import numpy
 
@@ -31,7 +31,7 @@ floattype=os.environ['SASSIE_FLOATTYPE']
 
 DataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
 
-class Test_intg_sasop_Move_center(MockerTestCase): 
+class Test_intg_operate_Move_center(MockerTestCase): 
 
     def setUp(self):
         self.o=sasmol.SasMol(0)

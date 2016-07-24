@@ -20,7 +20,7 @@ from sasmol.test_sasmol.util import env, util
 from unittest import main 
 from mocker import Mocker, MockerTestCase, ANY, ARGS, KWARGS
 import sasmol.sasmol as sasmol
-import sasmol.sasop as sasop
+import sasmol.operate as operate
 
 import numpy
 
@@ -32,11 +32,11 @@ floattype=os.environ['SASSIE_FLOATTYPE']
 class Test_sascalc_Prop_calcpmi(MockerTestCase): 
 
     def setUp(self):
-        self.centertmp = sasop.Move.center
+        self.centertmp = operate.Move.center
 
         self.m = Mocker()
-        sasop.Move.center = self.m.mock()
-        sasop.Move.center(ARGS)
+        operate.Move.center = self.m.mock()
+        operate.Move.center(ARGS)
         self.m.result(None)
         self.m.count(0,None)
 
@@ -202,7 +202,7 @@ class Test_sascalc_Prop_calcpmi(MockerTestCase):
         self.m.restore()
         self.m.verify()
         
-        sasop.Move.center = self.centertmp
+        operate.Move.center = self.centertmp
 
 if __name__ == '__main__': 
    main() 

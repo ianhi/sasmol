@@ -20,7 +20,7 @@ from sasmol.test_sasmol.util import env,util
 from unittest import main 
 from mocker import Mocker, MockerTestCase, ANY, ARGS, KWARGS
 import sasmol.sasmol as sasmol
-import sasmol.sasop as sasop
+import sasmol.operate as operate
 
 import numpy
 
@@ -30,9 +30,9 @@ import os
 floattype=os.environ['SASSIE_FLOATTYPE']
 
 DataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
-moduleDataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','sasmol','sasop')+os.path.sep
+moduleDataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','sasmol','operate')+os.path.sep
 
-class Test_intg_sasop_Move_align(MockerTestCase): 
+class Test_intg_operate_Move_align(MockerTestCase): 
 
 
     def setUp(self):

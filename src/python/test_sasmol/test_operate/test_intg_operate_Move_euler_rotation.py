@@ -20,8 +20,7 @@ from sasmol.test_sasmol.util import env,util
 from unittest import main, skipIf
 from mocker import Mocker, MockerTestCase, ANY, ARGS
 import sasmol.sasmol as sasmol
-import sasmol.sasop as sasop
-import sasmol.sascalc as sascalc
+import sasmol.operate as operate
 
 import numpy
 
@@ -32,7 +31,7 @@ floattype=os.environ['SASSIE_FLOATTYPE']
 
 DataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','data','pdb_common')+os.path.sep
 
-class Test_intg_sasop_Move_rotate(MockerTestCase): 
+class Test_intg_operate_euler_rotate(MockerTestCase): 
 
     def setUp(self):
         self.o=sasmol.SasMol(0)
@@ -49,30 +48,51 @@ class Test_intg_sasop_Move_rotate(MockerTestCase):
                  self.assert_list_almost_equal(a[i],b[i],places)
 
 
-    def test_one_atom_pdb(self):
+    def test_one_atom_pdb_norotate(self):
         self.o.read_pdb(DataPath+'1ATM.pdb')
-        axis = 'x'
         frame = 0
-        theta=numpy.pi/2.0
+        phi=0.0
+        theta=0.0
+        psi=0.0
         #
-        self.o.rotate(frame,axis,theta)
+        self.o.euler_rotate(frame,phi,theta,psi)
         result_coor = self.o.coor()
         result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_coor:\n'; util.printfl([result_coor]); print '\nresult_com:\n',util.printfl([result_com])
         #
-        expected_coor = numpy.array([[[73.944, -41.652, 41.799]]], floattype)
-        expected_com = numpy.array([73.944, -41.652, 41.799], floattype)
+        expected_coor = numpy.array([[[73.944, 41.799, 41.652]]], floattype)
+        expected_com = numpy.array([73.944, 41.799, 41.652], floattype)
+        self.assert_list_almost_equal(expected_coor, result_coor,3)
+        self.assert_list_almost_equal(expected_com, result_com,3)
+
+
+    def test_one_atom_pdb(self):
+        self.o.read_pdb(DataPath+'1ATM.pdb')
+        axis = 'x'
+        frame = 0
+        phi=0.0
+        theta=numpy.pi/2.0
+        psi=0.0
+        #
+        self.o.euler_rotate(frame,phi,theta,psi)
+        result_coor = self.o.coor()
+        result_com  = self.o.calculate_center_of_mass(0)
+        print '\nresult_coor:\n'; util.printfl([result_coor]); print '\nresult_com:\n',util.printfl([result_com])
+        #
+        expected_coor = numpy.array([[[41.652, 41.799, -73.944]]], floattype)
+        expected_com = numpy.array([41.652, 41.799, -73.944], floattype)
         self.assert_list_almost_equal(expected_coor, result_coor,3)
         self.assert_list_almost_equal(expected_com, result_com,3)
 
 
     def test_two_aa_pdb(self):
         self.o.read_pdb(DataPath+'2AAD.pdb')
-        axis = 'y'
         frame = 0
+        phi=0.0
         theta=numpy.pi/2.0
+        psi=0.0
         #
-        self.o.rotate(frame,axis,theta)
+        self.o.euler_rotate(frame,phi,theta,psi)
         result_coor = self.o.coor()
         result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_coor:\n'; util.printfl([result_coor]); print '\nresult_com:\n',util.printfl([result_com])
@@ -85,11 +105,12 @@ class Test_intg_sasop_Move_rotate(MockerTestCase):
 
     def test_rna_pdb(self):
         self.o.read_pdb(DataPath+'rna.pdb')
-        axis = 'z'
         frame = 0
-        theta=numpy.pi/2.0
+        phi=0.0
+        theta=0.0
+        psi=numpy.pi/2.0
         #
-        self.o.rotate(frame,axis,theta)
+        self.o.euler_rotate(frame,phi,theta,psi)
         result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
@@ -99,30 +120,30 @@ class Test_intg_sasop_Move_rotate(MockerTestCase):
 
     def test_1CRN_pdb(self):
         self.o.read_pdb(DataPath+'1CRN.pdb')
-        axis = 'z'
         frame = 0
         theta=numpy.pi/2.0
         #
-        self.o.rotate(frame,axis,theta)
+        self.o.euler_rotate(frame,theta,theta,theta)
         result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
-        expected_com = numpy.array([-9.775, 9.300, 6.978], floattype)
+        expected_com = numpy.array([6.978, -9.775, 9.300], floattype)
         self.assert_list_almost_equal(expected_com, result_com,2)
 
 
-    @skipIf(os.environ['SASSIE_LARGETEST']=='n',"I am not testing large files")
+    #@skipIf(os.environ['SASSIE_LARGETEST']=='n',"I am not testing large files")
     def test_1KP8_pdb(self):
         self.o.read_pdb(DataPath+'1KP8.pdb')
-        axis = 'x'
         frame = 0
-        theta=12.0
+        phi=0.3
+        theta=2.0
+        psi=2.3
         #
-        self.o.rotate(frame,axis,theta)
+        self.o.euler_rotate(frame,phi,theta,psi)
         result_com  = self.o.calculate_center_of_mass(0)
         print '\nresult_com:\n',util.printfl([result_com])
         #
-        expected_com = numpy.array([83.286, 14.288, 22.003], floattype)
+        expected_com = numpy.array([47.025, 47.438, 56.242], floattype)
         self.assert_list_almost_equal(expected_com, result_com,2)
 
     def tearDown(self):
