@@ -12,20 +12,20 @@ if version_info >= (2,6,0):
         import imp
         fp = None
         try:
-            fp, pathname, description = imp.find_module('_sasview_vmd', [dirname(__file__)])
+            fp, pathname, description = imp.find_module('_view_vmd', [dirname(__file__)])
         except ImportError:
-            import _sasview_vmd
-            return _sasview_vmd
+            import _view_vmd
+            return _view_vmd
         if fp is not None:
             try:
-                _mod = imp.load_module('_sasview_vmd', fp, pathname, description)
+                _mod = imp.load_module('_view_vmd', fp, pathname, description)
             finally:
                 fp.close()
             return _mod
-    _sasview_vmd = swig_import_helper()
+    _view_vmd = swig_import_helper()
     del swig_import_helper
 else:
-    import _sasview_vmd
+    import _view_vmd
 del version_info
 try:
     _swig_property = property
@@ -69,6 +69,6 @@ except AttributeError:
 
 
 def send_coordinates_to_vmd(*args):
-  return _sasview_vmd.send_coordinates_to_vmd(*args)
-send_coordinates_to_vmd = _sasview_vmd.send_coordinates_to_vmd
+  return _view_vmd.send_coordinates_to_vmd(*args)
+send_coordinates_to_vmd = _view_vmd.send_coordinates_to_vmd
 

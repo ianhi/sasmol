@@ -1,4 +1,4 @@
-%module sasview_vmd
+%module view_vmd
 
 %{
     #define SWIG_FILE_WITH_INIT

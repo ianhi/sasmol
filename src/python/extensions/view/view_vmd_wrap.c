@@ -2674,16 +2674,16 @@ static swig_module_info swig_module = {swig_types, 2, 0, 0, 0, 0};
 #endif
 
 /*-----------------------------------------------
-              @(target):= _sasview_vmd.so
+              @(target):= _view_vmd.so
   ------------------------------------------------*/
 #if PY_VERSION_HEX >= 0x03000000
-#  define SWIG_init    PyInit__sasview_vmd
+#  define SWIG_init    PyInit__view_vmd
 
 #else
-#  define SWIG_init    init_sasview_vmd
+#  define SWIG_init    init_view_vmd
 
 #endif
-#define SWIG_name    "_sasview_vmd"
+#define SWIG_name    "_view_vmd"
 
 #define SWIGVERSION 0x010340 
 #define SWIG_VERSION SWIGVERSION

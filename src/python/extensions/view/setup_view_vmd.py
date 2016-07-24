@@ -18,8 +18,8 @@ except AttributeError:
     numpy_include = numpy.get_numpy_include()
 
 # simple extension module
-_sasview_vmd = Extension("_sasview_vmd",
-                   ["sasview_vmd.i","sasview_vmd.c","imd.c","vmdsock.c"],
+_view_vmd = Extension("_view_vmd",
+                   ["view_vmd.i","view_vmd.c","imd.c","vmdsock.c"],
                    include_dirs = [numpy_include],
                    )
 
@@ -28,6 +28,6 @@ setup(  name        = "SASVIEW VMD I/O",
         description = "Module handles sending and receiving coordinates to VMD using numpy.i",
         author      = "Joseph E. Curtis",
         version     = "0.1",
-        ext_modules = [_sasview_vmd]
+        ext_modules = [_view_vmd]
         )
 

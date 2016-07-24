@@ -1,3 +1,7 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+#from __future__ import unicode_literals
 #   SASMOL: Copyright (C) 2011 Joseph E. Curtis, Ph.D. 
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -13,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#	SASVIEW
+#	VIEW
 #
 #	11/27/2013	--	initial coding			:	jc
 #	12/29/2015	--	refactored for release  :   jc
@@ -22,12 +26,12 @@
 # LC4567890123456789012345678901234567890123456789012345678901234567890123456789
 #								       *      **
 '''
-	Sasview is the main module that contains the base classes that 
+	View is the main module that contains the base classes that 
 	read and write atomic information from and to external viewers
 	such as vmd and others in the future (PyMol, etc.).
 	
 	To view the coordinates the viewer needs to be open and controlled
-	external to sasview / sasmol.  These methods merely allow 
+	external to view / sasmol.  These methods merely allow 
 	coordinates to be passed between programs.
 
 	See the following sites for the IMD format:
@@ -47,7 +51,7 @@ import locale
 import struct
 import numpy
 import time
-import sasview_vmd
+import view_vmd
 
 class View(object):
 
@@ -65,7 +69,7 @@ class View(object):
     def send_coordinates_to_vmd(self, port, flag):
         '''
         This method opens a socket to send and receive coordinates
-        by calling a pre-compiled C module (sasview_vmd).
+        by calling a pre-compiled C module (view_vmd).
         '''
         natoms = self._coor[0, :, 0].shape[0]
         frame = 0
@@ -73,7 +77,7 @@ class View(object):
         ty = self._coor[frame, :, 1].astype(numpy.float32)
         tz = self._coor[frame, :, 2].astype(numpy.float32)
 
-        result = sasview_vmd.send_coordinates_to_vmd(tx, ty, tz, port, flag)
+        result = view_vmd.send_coordinates_to_vmd(tx, ty, tz, port, flag)
 
         print 'result = ', result
 
