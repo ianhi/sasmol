@@ -49,7 +49,7 @@ import sasmol.calculate as calculate
 import sasmol.operate as operate
 import sasmol.sassubset as sassubset
 import sasmol.sasproperties as sasproperties
-import sasmol.saspdbrx as saspdbrx
+import sasmol.topology as topology
 import sasmol.sasview as sasview
 
 import sasmol.sasconfig as sasconfig
@@ -58,7 +58,7 @@ class Error(Exception):
     pass
 
 
-class SasAtm(sasio.Files, calculate.Calculate, operate.Move, sassubset.Mask, sasproperties.Atomic, saspdbrx.Topology, sasview.View):
+class SasAtm(sasio.Files, calculate.Calculate, operate.Move, sassubset.Mask, sasproperties.Atomic, topology.CharmmTopology, sasview.View):
 
     '''
         SasAtm is the base class to build and deal with atomistic systems.

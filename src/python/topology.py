@@ -82,10 +82,10 @@ import copy
 import sasconfig as sasconfig
 
 
-class Topology(object):
+class CharmmTopology(object):
 
     '''
-    This class contains charmm topolgy information used other modules.
+    This class contains charmm topology information used other modules.
     '''
 
     def add(self, dictionary, key, value):
