@@ -295,9 +295,13 @@ class Files(object):
         result=1
 
         sum=0.0
+	print('Reading DCD')
         for i in xrange(nset):
-            print '.',
+            sys.stdout.write('\r')
+            eq = int(numpy.ceil(numpy.true_divide(i*100,nset*5)))
+            sys.stdout.write("[{:20s}] {}/{} frames  ".format('='*eq, i+1,nset))
             sys.stdout.flush()
+
             read_start_time=time.time()
             tx=numpy.zeros(nnatoms,dtype=numpy.float32)
             ty=numpy.zeros(nnatoms,dtype=numpy.float32)
